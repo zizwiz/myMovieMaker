@@ -52,7 +52,8 @@ namespace myMovieMaker
             try
             {
                 // Validate input
-                string[] myImagesArray = txtbx_file_list.Lines;
+                string[] myImagesArray = rchtxtbx_renamed_file_name.Lines;
+
                 if (myImagesArray.Length == 0)
                 {
                     MessageBox.Show("Please select at least one image.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -105,6 +106,11 @@ namespace myMovieMaker
         private void btn_move_line_down_Click(object sender, EventArgs e)
         {
             RichTextBoxLineManipulation.MoveLine(1, txtbx_file_list); // Move the selected line down
+        }
+
+        private void btn_check_for_empty_jpg_Click(object sender, EventArgs e)
+        {
+            ProcessJpgFiles(txtbx_file_list);
         }
 
         //private void CreateVideoFromImages(string[] imagePaths, string outputPath, int frameRate)

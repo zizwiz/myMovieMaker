@@ -39,6 +39,8 @@ namespace myMovieMaker
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_rename_files = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.rchtxtbx_renamed_file_name = new System.Windows.Forms.RichTextBox();
+            this.rchtxtbx_original_name = new System.Windows.Forms.RichTextBox();
             this.txtNewNameFormat = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtWildcard = new System.Windows.Forms.TextBox();
@@ -48,16 +50,19 @@ namespace myMovieMaker
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_move_line_down = new System.Windows.Forms.Button();
+            this.btn_delete_line = new System.Windows.Forms.Button();
+            this.btn_move_line_up = new System.Windows.Forms.Button();
+            this.lbl_renamed_files_folder = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.lbl_folder_path = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_close = new System.Windows.Forms.Button();
-            this.lbl_renamed_files_folder = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.rchtxtbx_original_name = new System.Windows.Forms.RichTextBox();
-            this.rchtxtbx_renamed_file_name = new System.Windows.Forms.RichTextBox();
-            this.btn_move_line_up = new System.Windows.Forms.Button();
-            this.btn_delete_line = new System.Windows.Forms.Button();
-            this.btn_move_line_down = new System.Windows.Forms.Button();
+            this.tab_replace_empty_jpg = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btn_check_for_empty_jpg = new System.Windows.Forms.Button();
+            this.rchtxbx_checked_files = new System.Windows.Forms.RichTextBox();
+            this.rchtxbx_checking_file = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.tab_rename_files.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -65,6 +70,8 @@ namespace myMovieMaker
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tab_replace_empty_jpg.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtbx_file_list
@@ -87,16 +94,16 @@ namespace myMovieMaker
             // 
             // txtFrameRate
             // 
-            this.txtFrameRate.Location = new System.Drawing.Point(746, 415);
+            this.txtFrameRate.Location = new System.Drawing.Point(1184, 18);
             this.txtFrameRate.Name = "txtFrameRate";
-            this.txtFrameRate.Size = new System.Drawing.Size(198, 26);
+            this.txtFrameRate.Size = new System.Drawing.Size(52, 26);
             this.txtFrameRate.TabIndex = 2;
             this.txtFrameRate.Text = "25";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(606, 418);
+            this.label1.Location = new System.Drawing.Point(1044, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(134, 20);
             this.label1.TabIndex = 3;
@@ -104,9 +111,9 @@ namespace myMovieMaker
             // 
             // btnCreateVideo
             // 
-            this.btnCreateVideo.Location = new System.Drawing.Point(1070, 402);
+            this.btnCreateVideo.Location = new System.Drawing.Point(1092, 310);
             this.btnCreateVideo.Name = "btnCreateVideo";
-            this.btnCreateVideo.Size = new System.Drawing.Size(174, 53);
+            this.btnCreateVideo.Size = new System.Drawing.Size(158, 53);
             this.btnCreateVideo.TabIndex = 4;
             this.btnCreateVideo.Text = "Create Video";
             this.btnCreateVideo.UseVisualStyleBackColor = true;
@@ -116,19 +123,20 @@ namespace myMovieMaker
             // 
             this.rchtxbx_output.Location = new System.Drawing.Point(3, 3);
             this.rchtxbx_output.Name = "rchtxbx_output";
-            this.rchtxbx_output.Size = new System.Drawing.Size(1248, 393);
+            this.rchtxbx_output.Size = new System.Drawing.Size(1035, 360);
             this.rchtxbx_output.TabIndex = 5;
             this.rchtxbx_output.Text = "";
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tab_replace_empty_jpg);
             this.tabControl1.Controls.Add(this.tab_rename_files);
             this.tabControl1.Controls.Add(this.tab_movie_maker);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1268, 424);
+            this.tabControl1.Size = new System.Drawing.Size(1268, 425);
             this.tabControl1.TabIndex = 6;
             // 
             // tab_rename_files
@@ -137,7 +145,7 @@ namespace myMovieMaker
             this.tab_rename_files.Location = new System.Drawing.Point(4, 29);
             this.tab_rename_files.Name = "tab_rename_files";
             this.tab_rename_files.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_rename_files.Size = new System.Drawing.Size(1260, 391);
+            this.tab_rename_files.Size = new System.Drawing.Size(1260, 392);
             this.tab_rename_files.TabIndex = 0;
             this.tab_rename_files.Text = "Rename Files";
             this.tab_rename_files.UseVisualStyleBackColor = true;
@@ -154,8 +162,24 @@ namespace myMovieMaker
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1254, 385);
+            this.panel3.Size = new System.Drawing.Size(1254, 386);
             this.panel3.TabIndex = 0;
+            // 
+            // rchtxtbx_renamed_file_name
+            // 
+            this.rchtxtbx_renamed_file_name.Location = new System.Drawing.Point(683, 13);
+            this.rchtxtbx_renamed_file_name.Name = "rchtxtbx_renamed_file_name";
+            this.rchtxtbx_renamed_file_name.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_renamed_file_name.TabIndex = 6;
+            this.rchtxtbx_renamed_file_name.Text = "";
+            // 
+            // rchtxtbx_original_name
+            // 
+            this.rchtxtbx_original_name.Location = new System.Drawing.Point(29, 13);
+            this.rchtxtbx_original_name.Name = "rchtxtbx_original_name";
+            this.rchtxtbx_original_name.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_original_name.TabIndex = 5;
+            this.rchtxtbx_original_name.Text = "";
             // 
             // txtNewNameFormat
             // 
@@ -207,7 +231,7 @@ namespace myMovieMaker
             this.tab_movie_maker.Location = new System.Drawing.Point(4, 29);
             this.tab_movie_maker.Name = "tab_movie_maker";
             this.tab_movie_maker.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_movie_maker.Size = new System.Drawing.Size(1260, 472);
+            this.tab_movie_maker.Size = new System.Drawing.Size(1260, 392);
             this.tab_movie_maker.TabIndex = 1;
             this.tab_movie_maker.Text = "Movie Maker";
             this.tab_movie_maker.UseVisualStyleBackColor = true;
@@ -221,7 +245,7 @@ namespace myMovieMaker
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1254, 466);
+            this.panel1.Size = new System.Drawing.Size(1254, 386);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -234,8 +258,8 @@ namespace myMovieMaker
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.0411F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.9589F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.17808F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.82192F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1274, 730);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
@@ -252,10 +276,58 @@ namespace myMovieMaker
             this.panel2.Controls.Add(this.btn_select_image_files);
             this.panel2.Controls.Add(this.txtbx_file_list);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 433);
+            this.panel2.Location = new System.Drawing.Point(3, 434);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1268, 294);
+            this.panel2.Size = new System.Drawing.Size(1268, 293);
             this.panel2.TabIndex = 7;
+            // 
+            // btn_move_line_down
+            // 
+            this.btn_move_line_down.Location = new System.Drawing.Point(1099, 111);
+            this.btn_move_line_down.Name = "btn_move_line_down";
+            this.btn_move_line_down.Size = new System.Drawing.Size(158, 48);
+            this.btn_move_line_down.TabIndex = 9;
+            this.btn_move_line_down.Text = "Move line Down";
+            this.btn_move_line_down.UseVisualStyleBackColor = true;
+            this.btn_move_line_down.Click += new System.EventHandler(this.btn_move_line_down_Click);
+            // 
+            // btn_delete_line
+            // 
+            this.btn_delete_line.Location = new System.Drawing.Point(1099, 57);
+            this.btn_delete_line.Name = "btn_delete_line";
+            this.btn_delete_line.Size = new System.Drawing.Size(158, 48);
+            this.btn_delete_line.TabIndex = 8;
+            this.btn_delete_line.Text = "Delete line";
+            this.btn_delete_line.UseVisualStyleBackColor = true;
+            this.btn_delete_line.Click += new System.EventHandler(this.btn_delete_line_Click);
+            // 
+            // btn_move_line_up
+            // 
+            this.btn_move_line_up.Location = new System.Drawing.Point(1099, 3);
+            this.btn_move_line_up.Name = "btn_move_line_up";
+            this.btn_move_line_up.Size = new System.Drawing.Size(158, 48);
+            this.btn_move_line_up.TabIndex = 7;
+            this.btn_move_line_up.Text = "Move Line Up";
+            this.btn_move_line_up.UseVisualStyleBackColor = true;
+            this.btn_move_line_up.Click += new System.EventHandler(this.btn_move_line_up_Click);
+            // 
+            // lbl_renamed_files_folder
+            // 
+            this.lbl_renamed_files_folder.AutoSize = true;
+            this.lbl_renamed_files_folder.Location = new System.Drawing.Point(868, 251);
+            this.lbl_renamed_files_folder.Name = "lbl_renamed_files_folder";
+            this.lbl_renamed_files_folder.Size = new System.Drawing.Size(72, 20);
+            this.lbl_renamed_files_folder.TabIndex = 6;
+            this.lbl_renamed_files_folder.Text = "renamed";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(664, 251);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(198, 20);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Renamed File Folder Path:";
             // 
             // lbl_folder_path
             // 
@@ -285,69 +357,52 @@ namespace myMovieMaker
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
-            // lbl_renamed_files_folder
+            // tab_replace_empty_jpg
             // 
-            this.lbl_renamed_files_folder.AutoSize = true;
-            this.lbl_renamed_files_folder.Location = new System.Drawing.Point(868, 251);
-            this.lbl_renamed_files_folder.Name = "lbl_renamed_files_folder";
-            this.lbl_renamed_files_folder.Size = new System.Drawing.Size(72, 20);
-            this.lbl_renamed_files_folder.TabIndex = 6;
-            this.lbl_renamed_files_folder.Text = "renamed";
+            this.tab_replace_empty_jpg.Controls.Add(this.panel4);
+            this.tab_replace_empty_jpg.Location = new System.Drawing.Point(4, 29);
+            this.tab_replace_empty_jpg.Name = "tab_replace_empty_jpg";
+            this.tab_replace_empty_jpg.Size = new System.Drawing.Size(1260, 392);
+            this.tab_replace_empty_jpg.TabIndex = 2;
+            this.tab_replace_empty_jpg.Text = "Replace Empty jpg";
+            this.tab_replace_empty_jpg.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // panel4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(664, 251);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(198, 20);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Renamed File Folder Path:";
+            this.panel4.Controls.Add(this.rchtxbx_checked_files);
+            this.panel4.Controls.Add(this.rchtxbx_checking_file);
+            this.panel4.Controls.Add(this.btn_check_for_empty_jpg);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1260, 392);
+            this.panel4.TabIndex = 0;
             // 
-            // rchtxtbx_original_name
+            // btn_check_for_empty_jpg
             // 
-            this.rchtxtbx_original_name.Location = new System.Drawing.Point(29, 13);
-            this.rchtxtbx_original_name.Name = "rchtxtbx_original_name";
-            this.rchtxtbx_original_name.Size = new System.Drawing.Size(551, 306);
-            this.rchtxtbx_original_name.TabIndex = 5;
-            this.rchtxtbx_original_name.Text = "";
+            this.btn_check_for_empty_jpg.Location = new System.Drawing.Point(544, 332);
+            this.btn_check_for_empty_jpg.Name = "btn_check_for_empty_jpg";
+            this.btn_check_for_empty_jpg.Size = new System.Drawing.Size(158, 48);
+            this.btn_check_for_empty_jpg.TabIndex = 3;
+            this.btn_check_for_empty_jpg.Text = "Check Files";
+            this.btn_check_for_empty_jpg.UseVisualStyleBackColor = true;
+            this.btn_check_for_empty_jpg.Click += new System.EventHandler(this.btn_check_for_empty_jpg_Click);
             // 
-            // rchtxtbx_renamed_file_name
+            // rchtxbx_checked_files
             // 
-            this.rchtxtbx_renamed_file_name.Location = new System.Drawing.Point(683, 13);
-            this.rchtxtbx_renamed_file_name.Name = "rchtxtbx_renamed_file_name";
-            this.rchtxtbx_renamed_file_name.Size = new System.Drawing.Size(551, 306);
-            this.rchtxtbx_renamed_file_name.TabIndex = 6;
-            this.rchtxtbx_renamed_file_name.Text = "";
+            this.rchtxbx_checked_files.Location = new System.Drawing.Point(676, 13);
+            this.rchtxbx_checked_files.Name = "rchtxbx_checked_files";
+            this.rchtxbx_checked_files.Size = new System.Drawing.Size(551, 306);
+            this.rchtxbx_checked_files.TabIndex = 8;
+            this.rchtxbx_checked_files.Text = "";
             // 
-            // btn_move_line_up
+            // rchtxbx_checking_file
             // 
-            this.btn_move_line_up.Location = new System.Drawing.Point(1099, 3);
-            this.btn_move_line_up.Name = "btn_move_line_up";
-            this.btn_move_line_up.Size = new System.Drawing.Size(158, 48);
-            this.btn_move_line_up.TabIndex = 7;
-            this.btn_move_line_up.Text = "Move Line Up";
-            this.btn_move_line_up.UseVisualStyleBackColor = true;
-            this.btn_move_line_up.Click += new System.EventHandler(this.btn_move_line_up_Click);
-            // 
-            // btn_delete_line
-            // 
-            this.btn_delete_line.Location = new System.Drawing.Point(1099, 57);
-            this.btn_delete_line.Name = "btn_delete_line";
-            this.btn_delete_line.Size = new System.Drawing.Size(158, 48);
-            this.btn_delete_line.TabIndex = 8;
-            this.btn_delete_line.Text = "Delete line";
-            this.btn_delete_line.UseVisualStyleBackColor = true;
-            this.btn_delete_line.Click += new System.EventHandler(this.btn_delete_line_Click);
-            // 
-            // btn_move_line_down
-            // 
-            this.btn_move_line_down.Location = new System.Drawing.Point(1099, 111);
-            this.btn_move_line_down.Name = "btn_move_line_down";
-            this.btn_move_line_down.Size = new System.Drawing.Size(158, 48);
-            this.btn_move_line_down.TabIndex = 9;
-            this.btn_move_line_down.Text = "Move line Down";
-            this.btn_move_line_down.UseVisualStyleBackColor = true;
-            this.btn_move_line_down.Click += new System.EventHandler(this.btn_move_line_down_Click);
+            this.rchtxbx_checking_file.Location = new System.Drawing.Point(22, 13);
+            this.rchtxbx_checking_file.Name = "rchtxbx_checking_file";
+            this.rchtxbx_checking_file.Size = new System.Drawing.Size(551, 306);
+            this.rchtxbx_checking_file.TabIndex = 7;
+            this.rchtxbx_checking_file.Text = "";
             // 
             // Form1
             // 
@@ -369,6 +424,8 @@ namespace myMovieMaker
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tab_replace_empty_jpg.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -402,6 +459,11 @@ namespace myMovieMaker
         private System.Windows.Forms.Button btn_delete_line;
         private System.Windows.Forms.Button btn_move_line_up;
         private System.Windows.Forms.TextBox txtbx_file_list;
+        private System.Windows.Forms.TabPage tab_replace_empty_jpg;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btn_check_for_empty_jpg;
+        private System.Windows.Forms.RichTextBox rchtxbx_checked_files;
+        private System.Windows.Forms.RichTextBox rchtxbx_checking_file;
     }
 }
 

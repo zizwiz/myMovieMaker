@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using CenteredMessagebox;
 
 
 namespace myMovieMaker
@@ -13,19 +14,19 @@ namespace myMovieMaker
             // Validate inputs
             if (string.IsNullOrWhiteSpace(myFolderPath) || !Directory.Exists(myFolderPath))
             {
-                MessageBox.Show("Please select a valid folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MsgBox.Show("Please select a valid folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(myWildCard))
             {
-                MessageBox.Show("Please specify a myWildCard pattern (e.g., *.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MsgBox.Show("Please specify a myWildCard pattern (e.g., *.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(MyNamePrefix))
             {
-                MessageBox.Show("Please specify a new name format (e.g., File_{0}.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MsgBox.Show("Please specify a new name format (e.g., File_{0}.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -55,7 +56,7 @@ namespace myMovieMaker
                         rchtxtbx_renamed_file_name.AppendText(newFilePath + "Already exists - Skipping\r");
                         rchtxtbx_renamed_file_name.ScrollToCaret();
 
-                        MessageBox.Show($"File {newFileName} already exists. Skipping.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MsgBox.Show($"File {newFileName} already exists. Skipping.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         continue;
                     }
                     else
@@ -69,11 +70,11 @@ namespace myMovieMaker
                     counter++;
                 }
 
-                MessageBox.Show("Files renamed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MsgBox.Show("Files renamed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MsgBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

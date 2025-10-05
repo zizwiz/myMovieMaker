@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using CenteredMessagebox;
+using myMovieMaker.Utilities;
 
 
 namespace myMovieMaker
@@ -18,10 +20,11 @@ namespace myMovieMaker
 
             if (myImagesArray.Length == 0)
             {
-                MessageBox.Show("No JPG files found in the selected folder.");
+                MsgBox.Show("No JPG files found in the selected folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            myImagesArray = ArrayUtilities.RemoveLastItem(myImagesArray);
 
             //var inputArgs = "-framerate 20 -f rawvideo -pix_fmt rgb32 -video_size 1920x1080 -i -";
             // var outputArgs = "-vcodec libx264 -crf 23 -pix_fmt yuv420p -preset ultrafast -r 20 out.mp4";
@@ -122,12 +125,12 @@ namespace myMovieMaker
 
                 if (process.ExitCode == 0)
                 {
-                    MessageBox.Show($"Video created successfully: {myOutputVideo}");
+                    MsgBox.Show($"Video created successfully: {myOutputVideo}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     string error = process.StandardError.ReadToEnd();
-                    MessageBox.Show($"FFmpeg error: {error}");
+                    MsgBox.Show($"FFmpeg error: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 }
 
 
@@ -135,7 +138,7 @@ namespace myMovieMaker
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                MsgBox.Show($"An error occurred: {ex.Message}", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
