@@ -61,8 +61,9 @@ namespace myMovieMaker
             this.tab_replace_empty_jpg = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btn_check_for_empty_jpg = new System.Windows.Forms.Button();
-            this.rchtxbx_checked_files = new System.Windows.Forms.RichTextBox();
-            this.rchtxbx_checking_file = new System.Windows.Forms.RichTextBox();
+            this.rchtxtbx_checked_files = new System.Windows.Forms.RichTextBox();
+            this.rchtxtbx_checking_file = new System.Windows.Forms.RichTextBox();
+            this.btn_backup_files = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tab_rename_files.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -265,6 +266,7 @@ namespace myMovieMaker
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btn_backup_files);
             this.panel2.Controls.Add(this.btn_move_line_down);
             this.panel2.Controls.Add(this.btn_delete_line);
             this.panel2.Controls.Add(this.btn_move_line_up);
@@ -332,7 +334,7 @@ namespace myMovieMaker
             // lbl_folder_path
             // 
             this.lbl_folder_path.AutoSize = true;
-            this.lbl_folder_path.Location = new System.Drawing.Point(307, 251);
+            this.lbl_folder_path.Location = new System.Drawing.Point(436, 251);
             this.lbl_folder_path.Name = "lbl_folder_path";
             this.lbl_folder_path.Size = new System.Drawing.Size(29, 20);
             this.lbl_folder_path.TabIndex = 4;
@@ -341,7 +343,7 @@ namespace myMovieMaker
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 251);
+            this.label2.Location = new System.Drawing.Point(335, 251);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 20);
             this.label2.TabIndex = 3;
@@ -369,8 +371,8 @@ namespace myMovieMaker
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.rchtxbx_checked_files);
-            this.panel4.Controls.Add(this.rchtxbx_checking_file);
+            this.panel4.Controls.Add(this.rchtxtbx_checked_files);
+            this.panel4.Controls.Add(this.rchtxtbx_checking_file);
             this.panel4.Controls.Add(this.btn_check_for_empty_jpg);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
@@ -388,21 +390,31 @@ namespace myMovieMaker
             this.btn_check_for_empty_jpg.UseVisualStyleBackColor = true;
             this.btn_check_for_empty_jpg.Click += new System.EventHandler(this.btn_check_for_empty_jpg_Click);
             // 
-            // rchtxbx_checked_files
+            // rchtxtbx_checked_files
             // 
-            this.rchtxbx_checked_files.Location = new System.Drawing.Point(676, 13);
-            this.rchtxbx_checked_files.Name = "rchtxbx_checked_files";
-            this.rchtxbx_checked_files.Size = new System.Drawing.Size(551, 306);
-            this.rchtxbx_checked_files.TabIndex = 8;
-            this.rchtxbx_checked_files.Text = "";
+            this.rchtxtbx_checked_files.Location = new System.Drawing.Point(676, 13);
+            this.rchtxtbx_checked_files.Name = "rchtxtbx_checked_files";
+            this.rchtxtbx_checked_files.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_checked_files.TabIndex = 8;
+            this.rchtxtbx_checked_files.Text = "";
             // 
-            // rchtxbx_checking_file
+            // rchtxtbx_checking_file
             // 
-            this.rchtxbx_checking_file.Location = new System.Drawing.Point(22, 13);
-            this.rchtxbx_checking_file.Name = "rchtxbx_checking_file";
-            this.rchtxbx_checking_file.Size = new System.Drawing.Size(551, 306);
-            this.rchtxbx_checking_file.TabIndex = 7;
-            this.rchtxbx_checking_file.Text = "";
+            this.rchtxtbx_checking_file.Location = new System.Drawing.Point(22, 13);
+            this.rchtxtbx_checking_file.Name = "rchtxtbx_checking_file";
+            this.rchtxtbx_checking_file.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_checking_file.TabIndex = 7;
+            this.rchtxtbx_checking_file.Text = "";
+            // 
+            // btn_backup_files
+            // 
+            this.btn_backup_files.Location = new System.Drawing.Point(171, 237);
+            this.btn_backup_files.Name = "btn_backup_files";
+            this.btn_backup_files.Size = new System.Drawing.Size(158, 48);
+            this.btn_backup_files.TabIndex = 10;
+            this.btn_backup_files.Text = "Backup Files";
+            this.btn_backup_files.UseVisualStyleBackColor = true;
+            this.btn_backup_files.Click += new System.EventHandler(this.btn_backup_files_Click);
             // 
             // Form1
             // 
@@ -462,8 +474,9 @@ namespace myMovieMaker
         private System.Windows.Forms.TabPage tab_replace_empty_jpg;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btn_check_for_empty_jpg;
-        private System.Windows.Forms.RichTextBox rchtxbx_checked_files;
-        private System.Windows.Forms.RichTextBox rchtxbx_checking_file;
+        private System.Windows.Forms.RichTextBox rchtxtbx_checked_files;
+        private System.Windows.Forms.RichTextBox rchtxtbx_checking_file;
+        private System.Windows.Forms.Button btn_backup_files;
     }
 }
 

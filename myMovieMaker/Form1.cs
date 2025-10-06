@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using CenteredMessagebox;
 using myMovieMaker.Utilities;
 
 //using Accord.Video.FFMPEG;
@@ -111,6 +112,36 @@ namespace myMovieMaker
         private void btn_check_for_empty_jpg_Click(object sender, EventArgs e)
         {
             ProcessJpgFiles(txtbx_file_list);
+        }
+
+        private void btn_backup_files_Click(object sender, EventArgs e)
+        {
+            // Open folder browser dialogs for source and backup folders
+            using (FolderBrowserDialog sourceDialog = new FolderBrowserDialog())
+            using (FolderBrowserDialog backupDialog = new FolderBrowserDialog())
+            {
+                sourceDialog.Description = "Select the Source Folder";
+                backupDialog.Description = "Select the Backup Folder";
+
+                if (sourceDialog.ShowDialog() == DialogResult.OK &&
+                    backupDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string sourceFolder = sourceDialog.SelectedPath;
+                    string backupFolder = backupDialog.SelectedPath;
+
+                    try
+                    {
+                        // Copy files from source to backup folder
+                        FileUtilities.CopyFiles(sourceFolder, backupFolder);
+                        MsgBox.Show("Files backed-up successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MsgBox.Show($"Files not backed-up due to error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+
         }
 
         //private void CreateVideoFromImages(string[] imagePaths, string outputPath, int frameRate)

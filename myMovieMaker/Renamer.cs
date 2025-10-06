@@ -26,8 +26,12 @@ namespace myMovieMaker
 
             if (string.IsNullOrWhiteSpace(MyNamePrefix))
             {
-                MsgBox.Show("Please specify a new name format (e.g., File_{0}.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                DialogResult result = MsgBox.Show("Are you sure you do not want to prefix the file number? e.g File_{0}.", "Are you Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                   return; 
+                }
             }
 
             try

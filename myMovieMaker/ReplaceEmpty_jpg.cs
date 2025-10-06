@@ -16,6 +16,9 @@ namespace myMovieMaker
                 // Get all .jpg files in the folder, sorted by name
                // var myImagesArray = Directory.GetFiles(folderPath, "*.jpg").OrderBy(f => f).ToList();
 
+
+
+
                //Get the list from the text box and place in an array 
                string[] myImagesArray = txtbx_file_list.Lines;
 
@@ -30,15 +33,15 @@ namespace myMovieMaker
                 {
                     string previousFile = myImagesArray[i - 1];
 
-                    if (rchtxbx_checking_file.Text == "")
+                    if (rchtxtbx_checking_file.Text == "")
                     {
-                        rchtxbx_checking_file.AppendText("Checking file: " + previousFile);
+                        rchtxtbx_checking_file.AppendText("Checking file: " + previousFile);
                     }
                     else
                     {
-                        rchtxbx_checking_file.AppendText("\rChecking file: " + previousFile);
+                        rchtxtbx_checking_file.AppendText("\rChecking file: " + previousFile);
                     }
-                    rchtxbx_checking_file.ScrollToCaret();
+                    rchtxtbx_checking_file.ScrollToCaret();
                     
                     string currentFile = myImagesArray[i];
                     FileInfo fileInfo = new FileInfo(currentFile);
@@ -46,30 +49,30 @@ namespace myMovieMaker
                     // Check if the file size is less than 10 KB
                     if (fileInfo.Length < 10 * 1024)
                     {
-                        if (rchtxbx_checked_files.Text == "")
+                        if (rchtxtbx_checked_files.Text == "")
                         {
-                            rchtxbx_checked_files.AppendText("Replaced file: " + currentFile);
+                            rchtxtbx_checked_files.AppendText("Replaced file: " + currentFile);
                         }
                         else
                         {
-                            rchtxbx_checked_files.AppendText("\rReplaced file: " + currentFile);
+                            rchtxtbx_checked_files.AppendText("\rReplaced file: " + currentFile);
                         }
-                        rchtxbx_checked_files.ScrollToCaret();
+                        rchtxtbx_checked_files.ScrollToCaret();
 
                         // Replace the current file with the previous file
                         File.Copy(previousFile, currentFile, overwrite: true);
                     }
                     else
                     {
-                        if (rchtxbx_checked_files.Text == "")
+                        if (rchtxtbx_checked_files.Text == "")
                         {
-                            rchtxbx_checked_files.AppendText("Checked file: " + currentFile);
+                            rchtxtbx_checked_files.AppendText("Checked file: " + currentFile);
                             }
                         else
                         {
-                            rchtxbx_checked_files.AppendText("\rChecked file: " + currentFile);
+                            rchtxtbx_checked_files.AppendText("\rChecked file: " + currentFile);
                         }
-                        rchtxbx_checked_files.ScrollToCaret();
+                        rchtxtbx_checked_files.ScrollToCaret();
                     }
                 }
 
