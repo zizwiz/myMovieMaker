@@ -78,7 +78,7 @@ namespace myMovieMaker
                     {
                         CreateVideoFromImages(myImagesArray, saveFileDialog.FileName, frameRate);
 
-                       // CreateVideoFromImages(inputFolder, outputPath, frameRate);
+                        // CreateVideoFromImages(inputFolder, outputPath, frameRate);
                         MessageBox.Show("Video created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -117,30 +117,38 @@ namespace myMovieMaker
         private void btn_backup_files_Click(object sender, EventArgs e)
         {
             // Open folder browser dialogs for source and backup folders
-            using (FolderBrowserDialog sourceDialog = new FolderBrowserDialog())
-            using (FolderBrowserDialog backupDialog = new FolderBrowserDialog())
+            //using (FolderBrowserDialog sourceDialog = new FolderBrowserDialog())
+            //using (FolderBrowserDialog backupDialog = new FolderBrowserDialog())
+            //{
+            //    sourceDialog.Description = "Select the Source Folder";
+            //    backupDialog.Description = "Select the Backup Folder";
+
+            //    if (sourceDialog.ShowDialog() == DialogResult.OK &&
+            //        backupDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        string sourceFolder = sourceDialog.SelectedPath;
+            //        string backupFolder = backupDialog.SelectedPath;
+
+            string sourceFolder = lbl_folder_path.Text;
+            string backupFolder = sourceFolder + "backup_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + "\\";
+
+
+            try
             {
-                sourceDialog.Description = "Select the Source Folder";
-                backupDialog.Description = "Select the Backup Folder";
+                //create the new folder if it does not exist
+                Directory.CreateDirectory(backupFolder);
 
-                if (sourceDialog.ShowDialog() == DialogResult.OK &&
-                    backupDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string sourceFolder = sourceDialog.SelectedPath;
-                    string backupFolder = backupDialog.SelectedPath;
-
-                    try
-                    {
-                        // Copy files from source to backup folder
-                        FileUtilities.CopyFiles(sourceFolder, backupFolder);
-                        MsgBox.Show("Files backed-up successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MsgBox.Show($"Files not backed-up due to error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                // Copy files from source to backup folder
+                FileUtilities.CopyFiles(sourceFolder, backupFolder);
+                lbl_backup_folder.Text = backupFolder;
+                MsgBox.Show("Files backed-up successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            catch (Exception ex)
+            {
+                MsgBox.Show($"Files not backed-up due to error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //}
+            // }
 
         }
 

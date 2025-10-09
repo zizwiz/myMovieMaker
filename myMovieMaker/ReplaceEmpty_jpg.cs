@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using CenteredMessagebox;
+using myMovieMaker.Utilities;
 
 
 namespace myMovieMaker
@@ -14,13 +15,15 @@ namespace myMovieMaker
             try
             {
                 // Get all .jpg files in the folder, sorted by name
-               // var myImagesArray = Directory.GetFiles(folderPath, "*.jpg").OrderBy(f => f).ToList();
+                // var myImagesArray = Directory.GetFiles(folderPath, "*.jpg").OrderBy(f => f).ToList();
 
-
-
-
-               //Get the list from the text box and place in an array 
-               string[] myImagesArray = txtbx_file_list.Lines;
+                //first backup files even if we are only renaming a single file out of a whole directory of files.
+                string sourceFolder = lbl_folder_path.Text;
+                string backupFolder = sourceFolder + "backup_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + "\\";
+                FileUtilities.BackupFiles(sourceFolder, backupFolder, lbl_backup_folder);
+                
+                //Get the list from the text box and place in an array 
+                string[] myImagesArray = txtbx_file_list.Lines;
 
 
                 if (myImagesArray.Length < 2)
