@@ -66,6 +66,13 @@ namespace myMovieMaker
             this.btn_close = new System.Windows.Forms.Button();
             this.lbl_backup_folder = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtbx_rename_counter = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_replace_empty_jpg.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -101,7 +108,7 @@ namespace myMovieMaker
             this.txtFrameRate.Name = "txtFrameRate";
             this.txtFrameRate.Size = new System.Drawing.Size(52, 26);
             this.txtFrameRate.TabIndex = 2;
-            this.txtFrameRate.Text = "25";
+            this.txtFrameRate.Text = "5";
             // 
             // label1
             // 
@@ -124,9 +131,9 @@ namespace myMovieMaker
             // 
             // rchtxbx_output
             // 
-            this.rchtxbx_output.Location = new System.Drawing.Point(3, 3);
+            this.rchtxbx_output.Location = new System.Drawing.Point(3, 31);
             this.rchtxbx_output.Name = "rchtxbx_output";
-            this.rchtxbx_output.Size = new System.Drawing.Size(1035, 360);
+            this.rchtxbx_output.Size = new System.Drawing.Size(1035, 332);
             this.rchtxbx_output.TabIndex = 5;
             this.rchtxbx_output.Text = "";
             // 
@@ -154,6 +161,8 @@ namespace myMovieMaker
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.label9);
             this.panel4.Controls.Add(this.rchtxtbx_checked_files);
             this.panel4.Controls.Add(this.rchtxtbx_checking_file);
             this.panel4.Controls.Add(this.btn_check_for_empty_jpg);
@@ -165,17 +174,17 @@ namespace myMovieMaker
             // 
             // rchtxtbx_checked_files
             // 
-            this.rchtxtbx_checked_files.Location = new System.Drawing.Point(676, 13);
+            this.rchtxtbx_checked_files.Location = new System.Drawing.Point(676, 36);
             this.rchtxtbx_checked_files.Name = "rchtxtbx_checked_files";
-            this.rchtxtbx_checked_files.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_checked_files.Size = new System.Drawing.Size(551, 283);
             this.rchtxtbx_checked_files.TabIndex = 8;
             this.rchtxtbx_checked_files.Text = "";
             // 
             // rchtxtbx_checking_file
             // 
-            this.rchtxtbx_checking_file.Location = new System.Drawing.Point(22, 13);
+            this.rchtxtbx_checking_file.Location = new System.Drawing.Point(22, 36);
             this.rchtxtbx_checking_file.Name = "rchtxtbx_checking_file";
-            this.rchtxtbx_checking_file.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_checking_file.Size = new System.Drawing.Size(551, 283);
             this.rchtxtbx_checking_file.TabIndex = 7;
             this.rchtxtbx_checking_file.Text = "";
             // 
@@ -202,6 +211,10 @@ namespace myMovieMaker
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.txtbx_rename_counter);
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.rchtxtbx_renamed_file_name);
             this.panel3.Controls.Add(this.rchtxtbx_original_name);
             this.panel3.Controls.Add(this.txtNewNameFormat);
@@ -217,32 +230,31 @@ namespace myMovieMaker
             // 
             // rchtxtbx_renamed_file_name
             // 
-            this.rchtxtbx_renamed_file_name.Location = new System.Drawing.Point(683, 13);
+            this.rchtxtbx_renamed_file_name.Location = new System.Drawing.Point(683, 44);
             this.rchtxtbx_renamed_file_name.Name = "rchtxtbx_renamed_file_name";
-            this.rchtxtbx_renamed_file_name.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_renamed_file_name.Size = new System.Drawing.Size(551, 292);
             this.rchtxtbx_renamed_file_name.TabIndex = 6;
             this.rchtxtbx_renamed_file_name.Text = "";
             // 
             // rchtxtbx_original_name
             // 
-            this.rchtxtbx_original_name.Location = new System.Drawing.Point(29, 13);
+            this.rchtxtbx_original_name.Location = new System.Drawing.Point(29, 44);
             this.rchtxtbx_original_name.Name = "rchtxtbx_original_name";
-            this.rchtxtbx_original_name.Size = new System.Drawing.Size(551, 306);
+            this.rchtxtbx_original_name.Size = new System.Drawing.Size(551, 292);
             this.rchtxtbx_original_name.TabIndex = 5;
             this.rchtxtbx_original_name.Text = "";
             // 
             // txtNewNameFormat
             // 
-            this.txtNewNameFormat.Location = new System.Drawing.Point(547, 328);
+            this.txtNewNameFormat.Location = new System.Drawing.Point(547, 345);
             this.txtNewNameFormat.Name = "txtNewNameFormat";
             this.txtNewNameFormat.Size = new System.Drawing.Size(114, 26);
             this.txtNewNameFormat.TabIndex = 4;
-            this.txtNewNameFormat.Text = "file_";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(382, 331);
+            this.label4.Location = new System.Drawing.Point(382, 348);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(145, 20);
             this.label4.TabIndex = 3;
@@ -250,7 +262,7 @@ namespace myMovieMaker
             // 
             // txtWildcard
             // 
-            this.txtWildcard.Location = new System.Drawing.Point(193, 325);
+            this.txtWildcard.Location = new System.Drawing.Point(193, 342);
             this.txtWildcard.Name = "txtWildcard";
             this.txtWildcard.Size = new System.Drawing.Size(114, 26);
             this.txtWildcard.TabIndex = 2;
@@ -259,7 +271,7 @@ namespace myMovieMaker
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 328);
+            this.label3.Location = new System.Drawing.Point(28, 345);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(159, 20);
             this.label3.TabIndex = 1;
@@ -267,9 +279,9 @@ namespace myMovieMaker
             // 
             // btnRename
             // 
-            this.btnRename.Location = new System.Drawing.Point(1094, 325);
+            this.btnRename.Location = new System.Drawing.Point(1094, 342);
             this.btnRename.Name = "btnRename";
-            this.btnRename.Size = new System.Drawing.Size(140, 51);
+            this.btnRename.Size = new System.Drawing.Size(140, 34);
             this.btnRename.TabIndex = 0;
             this.btnRename.Text = "Rename";
             this.btnRename.UseVisualStyleBackColor = true;
@@ -288,6 +300,7 @@ namespace myMovieMaker
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.rchtxbx_output);
             this.panel1.Controls.Add(this.btnCreateVideo);
             this.panel1.Controls.Add(this.label1);
@@ -438,6 +451,68 @@ namespace myMovieMaker
             this.label7.TabIndex = 11;
             this.label7.Text = "Backup Folder:";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 20);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Original Name";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(679, 13);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(125, 20);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Renamed Name";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 13);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(121, 20);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Files Processed";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(672, 13);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(142, 20);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Processed Results";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 5);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(121, 20);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Processed Files";
+            // 
+            // txtbx_rename_counter
+            // 
+            this.txtbx_rename_counter.Location = new System.Drawing.Point(884, 348);
+            this.txtbx_rename_counter.Name = "txtbx_rename_counter";
+            this.txtbx_rename_counter.Size = new System.Drawing.Size(114, 26);
+            this.txtbx_rename_counter.TabIndex = 10;
+            this.txtbx_rename_counter.Text = "1";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(719, 351);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(154, 20);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Counter Start Value:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -451,6 +526,7 @@ namespace myMovieMaker
             this.tabControl1.ResumeLayout(false);
             this.tab_replace_empty_jpg.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.tab_rename_files.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -501,6 +577,13 @@ namespace myMovieMaker
         private System.Windows.Forms.Button btn_backup_files;
         private System.Windows.Forms.Label lbl_backup_folder;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtbx_rename_counter;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label11;
     }
 }
 

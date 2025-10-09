@@ -39,11 +39,11 @@ namespace myMovieMaker
             {
                 //var files = Directory.GetFiles(myFolderPath, myWildCard);
                 lbl_renamed_files_folder.Text = myFolderPath + "renamed";
-
-
+                
                 string[] myImagesArray = txtbx_file_list.Lines;
 
-                int counter = 1;
+                //get the start value of our counter, we always add a counter to file name to make it unique
+                int counter = int.Parse(txtbx_rename_counter.Text);
 
                 foreach (var file in myImagesArray)
                 {
