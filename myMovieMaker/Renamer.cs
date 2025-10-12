@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows.Forms;
 using CenteredMessagebox;
-using myMovieMaker.Utilities;
 
 
 namespace myMovieMaker
@@ -10,28 +9,35 @@ namespace myMovieMaker
     public partial class Form1
     {
         //Here we will first backup the files then rename them
-        private void RenameFactory(string myFolderPath, string myWildCard, string MyNamePrefix)
+        private bool RenameFactory(string myFolderPath, string myWildCard, string MyNamePrefix, bool myFlag)
         {
+            bool result = false;
+
             // Validate inputs
             if (string.IsNullOrWhiteSpace(myFolderPath) || !Directory.Exists(myFolderPath))
             {
-                MsgBox.Show("Please select a valid folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (myFlag) MsgBox.Show("Please select a valid folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return result;
             }
 
             if (string.IsNullOrWhiteSpace(myWildCard))
             {
-                MsgBox.Show("Please specify a myWildCard pattern (e.g., *.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (myFlag) MsgBox.Show("Please specify a myWildCard pattern (e.g., *.txt).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return result;
             }
 
             if (string.IsNullOrWhiteSpace(MyNamePrefix))
             {
-                DialogResult result = MsgBox.Show("Are you sure you do not want to prefix the file number? e.g File_{0}.", "Are you Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.No)
+                if (myFlag)
                 {
-                    return;
+                    DialogResult Question =
+                        MsgBox.Show("Are you sure you do not want to prefix the file number? e.g File_{0}.",
+                            "Are you Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (Question == DialogResult.No)
+                    {
+                        return result;
+                    }
                 }
             }
 
@@ -63,7 +69,7 @@ namespace myMovieMaker
                         rchtxtbx_renamed_file_name.AppendText(newFilePath + "Already exists - Skipping\r");
                         rchtxtbx_renamed_file_name.ScrollToCaret();
 
-                        MsgBox.Show($"File {newFileName} already exists. Skipping.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (myFlag) MsgBox.Show($"File {newFileName} already exists. Skipping.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         continue;
                     }
                     else
@@ -77,14 +83,16 @@ namespace myMovieMaker
                     counter++;
                 }
 
-                MsgBox.Show("Files renamed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                result = true;
+                if (myFlag) MsgBox.Show("Files renamed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MsgBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                result = false;
+                if (myFlag) MsgBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            return result;
         }
-
-
     }
 }

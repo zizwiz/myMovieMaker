@@ -39,11 +39,17 @@ namespace myMovieMaker
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_replace_empty_jpg = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.rchtxtbx_checked_files = new System.Windows.Forms.RichTextBox();
             this.rchtxtbx_checking_file = new System.Windows.Forms.RichTextBox();
             this.btn_check_for_empty_jpg = new System.Windows.Forms.Button();
             this.tab_rename_files = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtbx_rename_counter = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.rchtxtbx_renamed_file_name = new System.Windows.Forms.RichTextBox();
             this.rchtxtbx_original_name = new System.Windows.Forms.RichTextBox();
             this.txtNewNameFormat = new System.Windows.Forms.TextBox();
@@ -53,8 +59,13 @@ namespace myMovieMaker
             this.btnRename = new System.Windows.Forms.Button();
             this.tab_movie_maker = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_reset = new System.Windows.Forms.Button();
+            this.btn_make_movie = new System.Windows.Forms.Button();
+            this.lbl_backup_folder = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.btn_backup_files = new System.Windows.Forms.Button();
             this.btn_move_line_down = new System.Windows.Forms.Button();
             this.btn_delete_line = new System.Windows.Forms.Button();
@@ -64,15 +75,7 @@ namespace myMovieMaker
             this.lbl_folder_path = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_close = new System.Windows.Forms.Button();
-            this.lbl_backup_folder = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtbx_rename_counter = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.chkbx_autoname = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tab_replace_empty_jpg.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -89,6 +92,7 @@ namespace myMovieMaker
             this.txtbx_file_list.Location = new System.Drawing.Point(26, 3);
             this.txtbx_file_list.Multiline = true;
             this.txtbx_file_list.Name = "txtbx_file_list";
+            this.txtbx_file_list.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtbx_file_list.Size = new System.Drawing.Size(1048, 156);
             this.txtbx_file_list.TabIndex = 0;
             // 
@@ -108,7 +112,7 @@ namespace myMovieMaker
             this.txtFrameRate.Name = "txtFrameRate";
             this.txtFrameRate.Size = new System.Drawing.Size(52, 26);
             this.txtFrameRate.TabIndex = 2;
-            this.txtFrameRate.Text = "5";
+            this.txtFrameRate.Text = "10";
             // 
             // label1
             // 
@@ -146,7 +150,7 @@ namespace myMovieMaker
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1268, 425);
+            this.tabControl1.Size = new System.Drawing.Size(1268, 426);
             this.tabControl1.TabIndex = 6;
             // 
             // tab_replace_empty_jpg
@@ -154,7 +158,7 @@ namespace myMovieMaker
             this.tab_replace_empty_jpg.Controls.Add(this.panel4);
             this.tab_replace_empty_jpg.Location = new System.Drawing.Point(4, 29);
             this.tab_replace_empty_jpg.Name = "tab_replace_empty_jpg";
-            this.tab_replace_empty_jpg.Size = new System.Drawing.Size(1260, 392);
+            this.tab_replace_empty_jpg.Size = new System.Drawing.Size(1260, 393);
             this.tab_replace_empty_jpg.TabIndex = 2;
             this.tab_replace_empty_jpg.Text = "Replace Empty jpg";
             this.tab_replace_empty_jpg.UseVisualStyleBackColor = true;
@@ -169,8 +173,26 @@ namespace myMovieMaker
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1260, 392);
+            this.panel4.Size = new System.Drawing.Size(1260, 393);
             this.panel4.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(672, 13);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(142, 20);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Processed Results";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 13);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(121, 20);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Files Processed";
             // 
             // rchtxtbx_checked_files
             // 
@@ -204,7 +226,7 @@ namespace myMovieMaker
             this.tab_rename_files.Location = new System.Drawing.Point(4, 29);
             this.tab_rename_files.Name = "tab_rename_files";
             this.tab_rename_files.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_rename_files.Size = new System.Drawing.Size(1260, 392);
+            this.tab_rename_files.Size = new System.Drawing.Size(1260, 393);
             this.tab_rename_files.TabIndex = 0;
             this.tab_rename_files.Text = "Rename Files";
             this.tab_rename_files.UseVisualStyleBackColor = true;
@@ -225,8 +247,43 @@ namespace myMovieMaker
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1254, 386);
+            this.panel3.Size = new System.Drawing.Size(1254, 387);
             this.panel3.TabIndex = 0;
+            // 
+            // txtbx_rename_counter
+            // 
+            this.txtbx_rename_counter.Location = new System.Drawing.Point(884, 348);
+            this.txtbx_rename_counter.Name = "txtbx_rename_counter";
+            this.txtbx_rename_counter.Size = new System.Drawing.Size(114, 26);
+            this.txtbx_rename_counter.TabIndex = 10;
+            this.txtbx_rename_counter.Text = "1";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(719, 351);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(154, 20);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Counter Start Value:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(679, 13);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(125, 20);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Renamed Name";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 20);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Original Name";
             // 
             // rchtxtbx_renamed_file_name
             // 
@@ -293,13 +350,14 @@ namespace myMovieMaker
             this.tab_movie_maker.Location = new System.Drawing.Point(4, 29);
             this.tab_movie_maker.Name = "tab_movie_maker";
             this.tab_movie_maker.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_movie_maker.Size = new System.Drawing.Size(1260, 392);
+            this.tab_movie_maker.Size = new System.Drawing.Size(1260, 393);
             this.tab_movie_maker.TabIndex = 1;
             this.tab_movie_maker.Text = "Movie Maker";
             this.tab_movie_maker.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chkbx_autoname);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.rchtxbx_output);
             this.panel1.Controls.Add(this.btnCreateVideo);
@@ -308,8 +366,17 @@ namespace myMovieMaker
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1254, 386);
+            this.panel1.Size = new System.Drawing.Size(1254, 387);
             this.panel1.TabIndex = 0;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 5);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(121, 20);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Processed Files";
             // 
             // tableLayoutPanel1
             // 
@@ -328,6 +395,8 @@ namespace myMovieMaker
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btn_reset);
+            this.panel2.Controls.Add(this.btn_make_movie);
             this.panel2.Controls.Add(this.lbl_backup_folder);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.btn_backup_files);
@@ -342,14 +411,52 @@ namespace myMovieMaker
             this.panel2.Controls.Add(this.btn_select_image_files);
             this.panel2.Controls.Add(this.txtbx_file_list);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 434);
+            this.panel2.Location = new System.Drawing.Point(3, 435);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1268, 293);
+            this.panel2.Size = new System.Drawing.Size(1268, 292);
             this.panel2.TabIndex = 7;
+            // 
+            // btn_reset
+            // 
+            this.btn_reset.Location = new System.Drawing.Point(935, 236);
+            this.btn_reset.Name = "btn_reset";
+            this.btn_reset.Size = new System.Drawing.Size(158, 48);
+            this.btn_reset.TabIndex = 14;
+            this.btn_reset.Text = "Reset";
+            this.btn_reset.UseVisualStyleBackColor = true;
+            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
+            // 
+            // btn_make_movie
+            // 
+            this.btn_make_movie.Location = new System.Drawing.Point(26, 236);
+            this.btn_make_movie.Name = "btn_make_movie";
+            this.btn_make_movie.Size = new System.Drawing.Size(158, 48);
+            this.btn_make_movie.TabIndex = 13;
+            this.btn_make_movie.Text = "Make Movie";
+            this.btn_make_movie.UseVisualStyleBackColor = true;
+            this.btn_make_movie.Click += new System.EventHandler(this.btn_make_movie_Click);
+            // 
+            // lbl_backup_folder
+            // 
+            this.lbl_backup_folder.AutoSize = true;
+            this.lbl_backup_folder.Location = new System.Drawing.Point(334, 254);
+            this.lbl_backup_folder.Name = "lbl_backup_folder";
+            this.lbl_backup_folder.Size = new System.Drawing.Size(29, 20);
+            this.lbl_backup_folder.TabIndex = 12;
+            this.lbl_backup_folder.Text = ".....";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(212, 254);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(116, 20);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Backup Folder:";
             // 
             // btn_backup_files
             // 
-            this.btn_backup_files.Location = new System.Drawing.Point(26, 236);
+            this.btn_backup_files.Location = new System.Drawing.Point(1099, 168);
             this.btn_backup_files.Name = "btn_backup_files";
             this.btn_backup_files.Size = new System.Drawing.Size(158, 48);
             this.btn_backup_files.TabIndex = 10;
@@ -433,85 +540,17 @@ namespace myMovieMaker
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
-            // lbl_backup_folder
+            // chkbx_autoname
             // 
-            this.lbl_backup_folder.AutoSize = true;
-            this.lbl_backup_folder.Location = new System.Drawing.Point(334, 254);
-            this.lbl_backup_folder.Name = "lbl_backup_folder";
-            this.lbl_backup_folder.Size = new System.Drawing.Size(29, 20);
-            this.lbl_backup_folder.TabIndex = 12;
-            this.lbl_backup_folder.Text = ".....";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(212, 254);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 20);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Backup Folder:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 13);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 20);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Original Name";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(679, 13);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(125, 20);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Renamed Name";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(18, 13);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(121, 20);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Files Processed";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(672, 13);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(142, 20);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Processed Results";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 5);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(121, 20);
-            this.label11.TabIndex = 6;
-            this.label11.Text = "Processed Files";
-            // 
-            // txtbx_rename_counter
-            // 
-            this.txtbx_rename_counter.Location = new System.Drawing.Point(884, 348);
-            this.txtbx_rename_counter.Name = "txtbx_rename_counter";
-            this.txtbx_rename_counter.Size = new System.Drawing.Size(114, 26);
-            this.txtbx_rename_counter.TabIndex = 10;
-            this.txtbx_rename_counter.Text = "1";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(719, 351);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(154, 20);
-            this.label12.TabIndex = 9;
-            this.label12.Text = "Counter Start Value:";
+            this.chkbx_autoname.AutoSize = true;
+            this.chkbx_autoname.Checked = true;
+            this.chkbx_autoname.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbx_autoname.Location = new System.Drawing.Point(1068, 70);
+            this.chkbx_autoname.Name = "chkbx_autoname";
+            this.chkbx_autoname.Size = new System.Drawing.Size(111, 24);
+            this.chkbx_autoname.TabIndex = 7;
+            this.chkbx_autoname.Text = "AutoName";
+            this.chkbx_autoname.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -584,6 +623,9 @@ namespace myMovieMaker
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btn_make_movie;
+        private System.Windows.Forms.Button btn_reset;
+        private System.Windows.Forms.CheckBox chkbx_autoname;
     }
 }
 

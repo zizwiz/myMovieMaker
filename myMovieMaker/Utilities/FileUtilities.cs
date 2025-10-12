@@ -25,7 +25,7 @@ namespace myMovieMaker.Utilities
             }
         }
 
-        public static void BackupFiles(string mySourceFolder, string myBackupFolder, Label myBackupFolderLabel)
+        public static void BackupFiles(string mySourceFolder, string myBackupFolder, Label myBackupFolderLabel, bool myFlag)
         {
             try
             {
@@ -35,12 +35,12 @@ namespace myMovieMaker.Utilities
                 // Copy files from source to backup folder
                 FileUtilities.CopyFiles(mySourceFolder, myBackupFolder);
                 myBackupFolderLabel.Text = myBackupFolder;
-                MsgBox.Show("Files backed-up successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (myFlag) MsgBox.Show("Files backed-up successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 myBackupFolderLabel.Text = "Files not backed-up";
-                MsgBox.Show($"Files not backed-up due to error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (myFlag) MsgBox.Show($"Files not backed-up due to error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -13,15 +13,16 @@ namespace myMovieMaker
     public partial class Form1
     {
 
-        private void CreateVideoFromImages(string[] myImagesArray, string myOutputVideo, int myFrameRate)
+        private bool CreateVideoFromImages(string[] myImagesArray, string myOutputVideo, int myFrameRate, bool myFlag)
         {
             // Get all JPG files in the folder, sorted by name
            // var imageFiles = Directory.GetFiles(imageFolder, "*.jpg").OrderBy(f => f).ToList();
 
+           bool result = false;
             if (myImagesArray.Length == 0)
             {
                 MsgBox.Show("No JPG files found in the selected folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return result;
             }
 
             myImagesArray = ArrayUtilities.RemoveLastItem(myImagesArray);
@@ -56,10 +57,7 @@ namespace myMovieMaker
             // process.WaitForExit();
 
 
-
-
-
-            // FFmpeg command
+           // FFmpeg command
             string ffmpegPath = "ffmpeg"; // Ensure FFmpeg is in your PATH or provide the full path
             string arguments = "-y -f image2pipe -framerate " + myFrameRate + " -i pipe:0 -c:v libx264 -pix_fmt yuv420p " + myOutputVideo;
 
@@ -121,31 +119,32 @@ namespace myMovieMaker
                 //process.Close();
 
 
-
-
-                if (process.ExitCode == 0)
+                if (myFlag)
                 {
-                    MsgBox.Show($"Video created successfully: {myOutputVideo}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    string error = process.StandardError.ReadToEnd();
-                    MsgBox.Show($"FFmpeg error: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+
+                    if (process.ExitCode == 0)
+                    {
+                        MsgBox.Show($"Video created successfully: {myOutputVideo}", "Error", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        string error = process.StandardError.ReadToEnd();
+                        MsgBox.Show($"FFmpeg error: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
+                result = true;
 
                 //}
             }
             catch (Exception ex)
             {
-                MsgBox.Show($"An error occurred: {ex.Message}", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                result = false;
+               if (myFlag) MsgBox.Show($"An error occurred: {ex.Message}", "Exception", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            return result;
         }
-
-
-
-
-
-
     }
 }

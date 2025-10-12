@@ -10,8 +10,10 @@ namespace myMovieMaker
     public partial class Form1
     {
 
-        private void ProcessJpgFiles(TextBox myTextBox)
+        private bool ProcessJpgFiles(TextBox myTextBox, bool myFlag)
         {
+            bool result = false;
+
             try
             {
                 // Get all .jpg files in the folder, sorted by name
@@ -20,16 +22,16 @@ namespace myMovieMaker
                 //first backup files even if we are only renaming a single file out of a whole directory of files.
                 string sourceFolder = lbl_folder_path.Text;
                 string backupFolder = sourceFolder + "backup_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + "\\";
-                FileUtilities.BackupFiles(sourceFolder, backupFolder, lbl_backup_folder);
-                
+                FileUtilities.BackupFiles(sourceFolder, backupFolder, lbl_backup_folder, myFlag);
+
                 //Get the list from the text box and place in an array 
                 string[] myImagesArray = txtbx_file_list.Lines;
 
 
                 if (myImagesArray.Length < 2)
                 {
-                    MsgBox.Show("The folder must contain at least two .jpg files.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (myFlag) MsgBox.Show("The folder must contain at least two .jpg files.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return result;
                 }
 
                 for (int i = 1; i < myImagesArray.Length; i++) // Start from the second file
@@ -45,7 +47,7 @@ namespace myMovieMaker
                         rchtxtbx_checking_file.AppendText("\rChecking file: " + previousFile);
                     }
                     rchtxtbx_checking_file.ScrollToCaret();
-                    
+
                     string currentFile = myImagesArray[i];
                     FileInfo fileInfo = new FileInfo(currentFile);
 
@@ -70,7 +72,7 @@ namespace myMovieMaker
                         if (rchtxtbx_checked_files.Text == "")
                         {
                             rchtxtbx_checked_files.AppendText("Checked file: " + currentFile);
-                            }
+                        }
                         else
                         {
                             rchtxtbx_checked_files.AppendText("\rChecked file: " + currentFile);
@@ -79,12 +81,16 @@ namespace myMovieMaker
                     }
                 }
 
-                MsgBox.Show("Processing completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (myFlag) MsgBox.Show("Processing completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                result = true;
+
             }
             catch (Exception ex)
             {
-                MsgBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (myFlag) MsgBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            return result;
         }
     }
 }
