@@ -212,6 +212,8 @@ namespace myMovieMaker
             lbl_renamed_files_folder.Text = "....";
         }
 
+       
+
         //private void CreateVideoFromImages(string[] imagePaths, string outputPath, int frameRate)
         //{
         //    // Ensure all images exist
