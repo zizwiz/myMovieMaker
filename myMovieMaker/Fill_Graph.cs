@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -76,25 +77,23 @@ namespace myMovieMaker
 
         private void DrawPositionLine(string myFilePath, int myPosition)
         {
+
             Series CurrentTemperaturePosition = chrt_temperatures.Series.Add("");
 
-            CurrentTemperaturePosition.BeginInvoke((MethodInvoker)delegate ()
-            {
-                CurrentTemperaturePosition = chrt_temperatures.Series.Add("");
             CurrentTemperaturePosition.Color = Color.Black;
 
-            //Series CurrentWindSpeedPosition = chrt_winds.Series.Add("");
-            //CurrentWindSpeedPosition.Color = Color.Black;
+            Series CurrentWindSpeedPosition = chrt_winds.Series.Add("");
+            CurrentWindSpeedPosition.Color = Color.Black;
 
 
-            //Series CurrentPressurePosition = chrt_pressure.Series.Add("");
-            //CurrentPressurePosition.Color = Color.Black;
+            Series CurrentPressurePosition = chrt_pressure.Series.Add("");
+            CurrentPressurePosition.Color = Color.Black;
 
-            //type of chart
+            // type of chart
             //not sure why I need this but if not I get bar chart
             CurrentTemperaturePosition.ChartType = SeriesChartType.Column;
-            //CurrentWindSpeedPosition.ChartType = SeriesChartType.Column;
-            //CurrentPressurePosition.ChartType = SeriesChartType.Column;
+            CurrentWindSpeedPosition.ChartType = SeriesChartType.Column;
+            CurrentPressurePosition.ChartType = SeriesChartType.Column;
 
 
             if (File.Exists(myFilePath))
@@ -106,20 +105,20 @@ namespace myMovieMaker
                     for (int i = 0; i < myPosition; i++)
                     {
                         CurrentTemperaturePosition.Points.AddXY(0, 0);
-                        //CurrentWindSpeedPosition.Points.AddXY(0, 0);
-                        //CurrentPressurePosition.Points.AddXY(0, 0);
+                        CurrentWindSpeedPosition.Points.AddXY(0, 0);
+                        CurrentPressurePosition.Points.AddXY(0, 0);
                     }
 
                     CurrentTemperaturePosition.Points.AddXY(values[0], values[1]);
-                    //CurrentWindSpeedPosition.Points.AddXY(values[0], values[6]);
-                    //CurrentPressurePosition.Points.AddXY(values[0], values[7]);
+                    CurrentWindSpeedPosition.Points.AddXY(values[0], values[6]);
+                    CurrentPressurePosition.Points.AddXY(values[0], values[7]);
                 }
             }
             else
             {
                 MsgBox.Show("CSV file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            });
+
         }
 
 

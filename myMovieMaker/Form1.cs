@@ -260,7 +260,7 @@ namespace myMovieMaker
 
             
 
-            DrawPositionLine("weather_readings_sept.csv", 98);
+            //DrawPositionLine("weather_readings_sept.csv", 98);
 
 
             bool myFlag = true;
