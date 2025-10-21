@@ -92,7 +92,14 @@
     <Compile Include="ReplaceEmpty_jpg.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ShowIamge1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowSynoptic.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\ArrayUtilities.cs" />
+    <Compile Include="Utilities\csvFileUtilities.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\MsgBox.cs" />
     <Compile Include="Utilities\RichTextBoxLineManipulation.cs" />
@@ -125,8 +132,6 @@
   <ItemGroup>
     <Content Include="myReel.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

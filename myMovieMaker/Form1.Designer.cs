@@ -29,6 +29,8 @@ namespace myMovieMaker
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -88,6 +90,18 @@ namespace myMovieMaker
             this.chrt_temperatures = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chrt_winds = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chrt_pressure = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.pcbx_image = new System.Windows.Forms.PictureBox();
+            this.pcbx_synoptic = new System.Windows.Forms.PictureBox();
+            this.lbl_date_and_time = new System.Windows.Forms.Label();
+            this.chrt_rainfall = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.lbl_wind_direction = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_replace_empty_jpg.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -102,11 +116,14 @@ namespace myMovieMaker
             ((System.ComponentModel.ISupportInitialize)(this.chrt_temperatures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_winds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_pressure)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbx_image)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbx_synoptic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chrt_rainfall)).BeginInit();
             this.SuspendLayout();
             // 
             // txtbx_file_list
             // 
-            this.txtbx_file_list.Location = new System.Drawing.Point(26, 3);
+            this.txtbx_file_list.Location = new System.Drawing.Point(11, 3);
             this.txtbx_file_list.Multiline = true;
             this.txtbx_file_list.Name = "txtbx_file_list";
             this.txtbx_file_list.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -115,7 +132,7 @@ namespace myMovieMaker
             // 
             // btn_select_image_files
             // 
-            this.btn_select_image_files.Location = new System.Drawing.Point(26, 182);
+            this.btn_select_image_files.Location = new System.Drawing.Point(11, 182);
             this.btn_select_image_files.Name = "btn_select_image_files";
             this.btn_select_image_files.Size = new System.Drawing.Size(158, 48);
             this.btn_select_image_files.TabIndex = 1;
@@ -168,7 +185,7 @@ namespace myMovieMaker
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1268, 426);
+            this.tabControl1.Size = new System.Drawing.Size(1426, 655);
             this.tabControl1.TabIndex = 6;
             // 
             // tab_replace_empty_jpg
@@ -367,26 +384,38 @@ namespace myMovieMaker
             this.tab_build_images.Controls.Add(this.panel5);
             this.tab_build_images.Location = new System.Drawing.Point(4, 29);
             this.tab_build_images.Name = "tab_build_images";
-            this.tab_build_images.Size = new System.Drawing.Size(1260, 393);
+            this.tab_build_images.Size = new System.Drawing.Size(1418, 622);
             this.tab_build_images.TabIndex = 3;
             this.tab_build_images.Text = "Build Images";
             this.tab_build_images.UseVisualStyleBackColor = true;
             // 
             // panel5
             // 
+            this.panel5.BackColor = System.Drawing.Color.Black;
+            this.panel5.Controls.Add(this.lbl_wind_direction);
+            this.panel5.Controls.Add(this.label19);
+            this.panel5.Controls.Add(this.label18);
+            this.panel5.Controls.Add(this.chrt_rainfall);
+            this.panel5.Controls.Add(this.lbl_date_and_time);
+            this.panel5.Controls.Add(this.pcbx_synoptic);
+            this.panel5.Controls.Add(this.pcbx_image);
+            this.panel5.Controls.Add(this.label17);
+            this.panel5.Controls.Add(this.label16);
+            this.panel5.Controls.Add(this.label15);
+            this.panel5.Controls.Add(this.label14);
+            this.panel5.Controls.Add(this.label13);
             this.panel5.Controls.Add(this.chrt_pressure);
             this.panel5.Controls.Add(this.chrt_winds);
             this.panel5.Controls.Add(this.chrt_temperatures);
-            this.panel5.Controls.Add(this.btn_fill_graph);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1260, 393);
+            this.panel5.Size = new System.Drawing.Size(1418, 622);
             this.panel5.TabIndex = 0;
             // 
             // btn_fill_graph
             // 
-            this.btn_fill_graph.Location = new System.Drawing.Point(1141, 352);
+            this.btn_fill_graph.Location = new System.Drawing.Point(651, 209);
             this.btn_fill_graph.Name = "btn_fill_graph";
             this.btn_fill_graph.Size = new System.Drawing.Size(92, 37);
             this.btn_fill_graph.TabIndex = 0;
@@ -450,9 +479,9 @@ namespace myMovieMaker
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.17808F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.82192F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1274, 730);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.53001F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.46998F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1432, 966);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // panel2
@@ -465,6 +494,7 @@ namespace myMovieMaker
             this.panel2.Controls.Add(this.btn_move_line_down);
             this.panel2.Controls.Add(this.btn_delete_line);
             this.panel2.Controls.Add(this.btn_move_line_up);
+            this.panel2.Controls.Add(this.btn_fill_graph);
             this.panel2.Controls.Add(this.lbl_renamed_files_folder);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.lbl_folder_path);
@@ -473,14 +503,14 @@ namespace myMovieMaker
             this.panel2.Controls.Add(this.btn_select_image_files);
             this.panel2.Controls.Add(this.txtbx_file_list);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 435);
+            this.panel2.Location = new System.Drawing.Point(3, 664);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1268, 292);
+            this.panel2.Size = new System.Drawing.Size(1426, 299);
             this.panel2.TabIndex = 7;
             // 
             // btn_reset
             // 
-            this.btn_reset.Location = new System.Drawing.Point(935, 236);
+            this.btn_reset.Location = new System.Drawing.Point(920, 236);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(158, 48);
             this.btn_reset.TabIndex = 14;
@@ -490,7 +520,7 @@ namespace myMovieMaker
             // 
             // btn_make_movie
             // 
-            this.btn_make_movie.Location = new System.Drawing.Point(26, 236);
+            this.btn_make_movie.Location = new System.Drawing.Point(11, 236);
             this.btn_make_movie.Name = "btn_make_movie";
             this.btn_make_movie.Size = new System.Drawing.Size(158, 48);
             this.btn_make_movie.TabIndex = 13;
@@ -501,7 +531,7 @@ namespace myMovieMaker
             // lbl_backup_folder
             // 
             this.lbl_backup_folder.AutoSize = true;
-            this.lbl_backup_folder.Location = new System.Drawing.Point(334, 254);
+            this.lbl_backup_folder.Location = new System.Drawing.Point(319, 254);
             this.lbl_backup_folder.Name = "lbl_backup_folder";
             this.lbl_backup_folder.Size = new System.Drawing.Size(29, 20);
             this.lbl_backup_folder.TabIndex = 12;
@@ -510,7 +540,7 @@ namespace myMovieMaker
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(212, 254);
+            this.label7.Location = new System.Drawing.Point(197, 254);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 20);
             this.label7.TabIndex = 11;
@@ -518,7 +548,7 @@ namespace myMovieMaker
             // 
             // btn_backup_files
             // 
-            this.btn_backup_files.Location = new System.Drawing.Point(1099, 168);
+            this.btn_backup_files.Location = new System.Drawing.Point(1084, 168);
             this.btn_backup_files.Name = "btn_backup_files";
             this.btn_backup_files.Size = new System.Drawing.Size(158, 48);
             this.btn_backup_files.TabIndex = 10;
@@ -528,7 +558,7 @@ namespace myMovieMaker
             // 
             // btn_move_line_down
             // 
-            this.btn_move_line_down.Location = new System.Drawing.Point(1099, 111);
+            this.btn_move_line_down.Location = new System.Drawing.Point(1084, 111);
             this.btn_move_line_down.Name = "btn_move_line_down";
             this.btn_move_line_down.Size = new System.Drawing.Size(158, 48);
             this.btn_move_line_down.TabIndex = 9;
@@ -538,7 +568,7 @@ namespace myMovieMaker
             // 
             // btn_delete_line
             // 
-            this.btn_delete_line.Location = new System.Drawing.Point(1099, 57);
+            this.btn_delete_line.Location = new System.Drawing.Point(1084, 57);
             this.btn_delete_line.Name = "btn_delete_line";
             this.btn_delete_line.Size = new System.Drawing.Size(158, 48);
             this.btn_delete_line.TabIndex = 8;
@@ -548,7 +578,7 @@ namespace myMovieMaker
             // 
             // btn_move_line_up
             // 
-            this.btn_move_line_up.Location = new System.Drawing.Point(1099, 3);
+            this.btn_move_line_up.Location = new System.Drawing.Point(1084, 3);
             this.btn_move_line_up.Name = "btn_move_line_up";
             this.btn_move_line_up.Size = new System.Drawing.Size(158, 48);
             this.btn_move_line_up.TabIndex = 7;
@@ -559,7 +589,7 @@ namespace myMovieMaker
             // lbl_renamed_files_folder
             // 
             this.lbl_renamed_files_folder.AutoSize = true;
-            this.lbl_renamed_files_folder.Location = new System.Drawing.Point(416, 226);
+            this.lbl_renamed_files_folder.Location = new System.Drawing.Point(401, 226);
             this.lbl_renamed_files_folder.Name = "lbl_renamed_files_folder";
             this.lbl_renamed_files_folder.Size = new System.Drawing.Size(29, 20);
             this.lbl_renamed_files_folder.TabIndex = 6;
@@ -568,7 +598,7 @@ namespace myMovieMaker
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(212, 226);
+            this.label6.Location = new System.Drawing.Point(197, 226);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(198, 20);
             this.label6.TabIndex = 5;
@@ -577,7 +607,7 @@ namespace myMovieMaker
             // lbl_folder_path
             // 
             this.lbl_folder_path.AutoSize = true;
-            this.lbl_folder_path.Location = new System.Drawing.Point(313, 196);
+            this.lbl_folder_path.Location = new System.Drawing.Point(298, 196);
             this.lbl_folder_path.Name = "lbl_folder_path";
             this.lbl_folder_path.Size = new System.Drawing.Size(29, 20);
             this.lbl_folder_path.TabIndex = 4;
@@ -586,7 +616,7 @@ namespace myMovieMaker
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(212, 196);
+            this.label2.Location = new System.Drawing.Point(197, 196);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 20);
             this.label2.TabIndex = 3;
@@ -594,7 +624,7 @@ namespace myMovieMaker
             // 
             // btn_close
             // 
-            this.btn_close.Location = new System.Drawing.Point(1099, 236);
+            this.btn_close.Location = new System.Drawing.Point(1084, 236);
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(158, 48);
             this.btn_close.TabIndex = 2;
@@ -604,55 +634,203 @@ namespace myMovieMaker
             // 
             // chrt_temperatures
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chrt_temperatures.ChartAreas.Add(chartArea3);
-            this.chrt_temperatures.Location = new System.Drawing.Point(7, 27);
+            chartArea4.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorTickMark.Enabled = false;
+            chartArea4.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea4.Name = "ChartArea1";
+            this.chrt_temperatures.ChartAreas.Add(chartArea4);
+            this.chrt_temperatures.Location = new System.Drawing.Point(7, 423);
             this.chrt_temperatures.Name = "chrt_temperatures";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Name = "Series1";
-            this.chrt_temperatures.Series.Add(series3);
-            this.chrt_temperatures.Size = new System.Drawing.Size(384, 282);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Name = "Series1";
+            this.chrt_temperatures.Series.Add(series4);
+            this.chrt_temperatures.Size = new System.Drawing.Size(349, 184);
             this.chrt_temperatures.TabIndex = 1;
             this.chrt_temperatures.Text = "chart1";
             // 
             // chrt_winds
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chrt_winds.ChartAreas.Add(chartArea2);
-            this.chrt_winds.Location = new System.Drawing.Point(397, 27);
+            chartArea3.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.Name = "ChartArea1";
+            this.chrt_winds.ChartAreas.Add(chartArea3);
+            this.chrt_winds.Location = new System.Drawing.Point(362, 423);
             this.chrt_winds.Name = "chrt_winds";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Name = "Series1";
-            this.chrt_winds.Series.Add(series2);
-            this.chrt_winds.Size = new System.Drawing.Size(393, 282);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Name = "Series1";
+            this.chrt_winds.Series.Add(series3);
+            this.chrt_winds.Size = new System.Drawing.Size(349, 184);
             this.chrt_winds.TabIndex = 2;
             this.chrt_winds.Text = "chart1";
             // 
             // chrt_pressure
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chrt_pressure.ChartAreas.Add(chartArea1);
-            this.chrt_pressure.Location = new System.Drawing.Point(796, 27);
+            chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea2.AxisY.Maximum = 1050D;
+            chartArea2.AxisY.Minimum = 920D;
+            chartArea2.Name = "ChartArea1";
+            this.chrt_pressure.ChartAreas.Add(chartArea2);
+            this.chrt_pressure.Location = new System.Drawing.Point(717, 423);
             this.chrt_pressure.Name = "chrt_pressure";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Name = "Series1";
-            this.chrt_pressure.Series.Add(series1);
-            this.chrt_pressure.Size = new System.Drawing.Size(391, 282);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Name = "Series1";
+            this.chrt_pressure.Series.Add(series2);
+            this.chrt_pressure.Size = new System.Drawing.Size(336, 184);
             this.chrt_pressure.TabIndex = 3;
             this.chrt_pressure.Text = "chart1";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(78, 590);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(109, 17);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Temperature °C";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Blue;
+            this.label14.Location = new System.Drawing.Point(429, 590);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(107, 17);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Wind Speed kts";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.DarkOrange;
+            this.label15.Location = new System.Drawing.Point(860, 590);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(101, 17);
+            this.label15.TabIndex = 6;
+            this.label15.Text = "Pressure mbar";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Green;
+            this.label16.Location = new System.Drawing.Point(254, 590);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(85, 17);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "Dewpoint °C";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.Fuchsia;
+            this.label17.Location = new System.Drawing.Point(621, 590);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(67, 17);
+            this.label17.TabIndex = 8;
+            this.label17.Text = "Gusts kts";
+            // 
+            // pcbx_image
+            // 
+            this.pcbx_image.Location = new System.Drawing.Point(766, 10);
+            this.pcbx_image.Name = "pcbx_image";
+            this.pcbx_image.Size = new System.Drawing.Size(631, 394);
+            this.pcbx_image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pcbx_image.TabIndex = 9;
+            this.pcbx_image.TabStop = false;
+            // 
+            // pcbx_synoptic
+            // 
+            this.pcbx_synoptic.Location = new System.Drawing.Point(7, 84);
+            this.pcbx_synoptic.Name = "pcbx_synoptic";
+            this.pcbx_synoptic.Size = new System.Drawing.Size(509, 304);
+            this.pcbx_synoptic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pcbx_synoptic.TabIndex = 10;
+            this.pcbx_synoptic.TabStop = false;
+            // 
+            // lbl_date_and_time
+            // 
+            this.lbl_date_and_time.AutoSize = true;
+            this.lbl_date_and_time.ForeColor = System.Drawing.Color.White;
+            this.lbl_date_and_time.Location = new System.Drawing.Point(63, 29);
+            this.lbl_date_and_time.Name = "lbl_date_and_time";
+            this.lbl_date_and_time.Size = new System.Drawing.Size(33, 20);
+            this.lbl_date_and_time.TabIndex = 11;
+            this.lbl_date_and_time.Text = "......";
+            // 
+            // chrt_rainfall
+            // 
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.Name = "ChartArea1";
+            this.chrt_rainfall.ChartAreas.Add(chartArea1);
+            this.chrt_rainfall.Location = new System.Drawing.Point(1059, 423);
+            this.chrt_rainfall.Name = "chrt_rainfall";
+            series1.ChartArea = "ChartArea1";
+            series1.Name = "Series1";
+            this.chrt_rainfall.Series.Add(series1);
+            this.chrt_rainfall.Size = new System.Drawing.Size(349, 184);
+            this.chrt_rainfall.TabIndex = 12;
+            this.chrt_rainfall.Text = "chart1";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.Transparent;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.DarkOrange;
+            this.label18.Location = new System.Drawing.Point(1203, 590);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(81, 17);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "Rainfall mm";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(576, 97);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(112, 20);
+            this.label19.TabIndex = 14;
+            this.label19.Text = "Wind Direction";
+            // 
+            // lbl_wind_direction
+            // 
+            this.lbl_wind_direction.AutoSize = true;
+            this.lbl_wind_direction.ForeColor = System.Drawing.Color.White;
+            this.lbl_wind_direction.Location = new System.Drawing.Point(606, 139);
+            this.lbl_wind_direction.Name = "lbl_wind_direction";
+            this.lbl_wind_direction.Size = new System.Drawing.Size(33, 20);
+            this.lbl_wind_direction.TabIndex = 15;
+            this.lbl_wind_direction.Text = "......";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 730);
+            this.ClientSize = new System.Drawing.Size(1432, 966);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "myMovieMaker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tab_replace_empty_jpg.ResumeLayout(false);
@@ -663,6 +841,7 @@ namespace myMovieMaker
             this.panel3.PerformLayout();
             this.tab_build_images.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.tab_movie_maker.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -672,6 +851,9 @@ namespace myMovieMaker
             ((System.ComponentModel.ISupportInitialize)(this.chrt_temperatures)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_winds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chrt_pressure)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbx_image)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbx_synoptic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chrt_rainfall)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -729,6 +911,18 @@ namespace myMovieMaker
         private System.Windows.Forms.DataVisualization.Charting.Chart chrt_temperatures;
         private System.Windows.Forms.DataVisualization.Charting.Chart chrt_winds;
         private System.Windows.Forms.DataVisualization.Charting.Chart chrt_pressure;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.PictureBox pcbx_synoptic;
+        private System.Windows.Forms.PictureBox pcbx_image;
+        private System.Windows.Forms.Label lbl_date_and_time;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chrt_rainfall;
+        private System.Windows.Forms.Label lbl_wind_direction;
+        private System.Windows.Forms.Label label19;
     }
 }
 

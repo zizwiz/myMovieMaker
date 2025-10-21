@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using CenteredMessagebox;
 using myMovieMaker.Utilities;
@@ -11,6 +13,8 @@ namespace myMovieMaker
 {
     public partial class Form1 : Form
     {
+        private Thread myChangeImageThread;
+
         public Form1()
         {
 
@@ -25,6 +29,11 @@ namespace myMovieMaker
         private void btn_close_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            myChangeImageThread.Abort();
         }
 
         private void btn_select_image_files_Click(object sender, EventArgs e)
@@ -212,7 +221,91 @@ namespace myMovieMaker
             lbl_renamed_files_folder.Text = "....";
         }
 
-       
+        private void btn_fill_graph_Click(object sender, EventArgs e)
+        {
+            
+            //var t = new Thread(() => ChangeImage(lbl_date_and_time));
+            //t.Start();
+
+            string myWeatherFile = "weather_readings_sept.csv";
+
+           // int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile);
+
+            double[] MinAndMaxValues =
+                csvFileUtilities.GetMaxMinColumnValue(myWeatherFile, "Pressure mbar");
+
+            //Set min and max for the Pressure Graph
+            chrt_pressure.ChartAreas.FindByName("ChartArea1").AxisY.Maximum = Math.Ceiling(MinAndMaxValues[0]);
+            chrt_pressure.ChartAreas.FindByName("ChartArea1").AxisY.Minimum = Math.Floor(MinAndMaxValues[1]);
+
+            // Load data from CSV and plot it
+            FillGraph(myWeatherFile);
+
+            ShowSynoptic("C:\\temp\\temp\\test\\west17\\0000.jpg");
+
+            // Create and start the thread to change the images
+            myChangeImageThread = new Thread(ChangeImage);
+            myChangeImageThread.Start();
+            // DrawPositionLine("weather_readings_sept.csv", lineCount / 2);
+        }
+
+        private void ChangeImage()
+        {
+            string myWeatherFile = "weather_readings_sept.csv";
+           int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile)-1;
+            
+            DirectoryInfo dir = new DirectoryInfo(@"C:\\temp\\temp\\test\\west17");
+            int fileCount = dir.GetFiles().Length-2;
+
+
+            
+
+            DrawPositionLine("weather_readings_sept.csv", 98);
+
+
+            bool myFlag = true;
+            string myFile;
+
+            for (int i = 1; i < fileCount - 1; i++)
+            {
+                myFile = "C:\\temp\\temp\\test\\west17\\" + i + ".jpg";
+                ShowImage(myFile);
+                //DateTime creationTime = File.GetCreationTime(myImageFile);
+                //DateTime lastWriteDateTime = File.GetLastWriteTime(myFile);
+                //TimeSpan myFileTime = File.GetLastWriteTime(myFile).TimeOfDay;
+
+                //Invoke to prevent cross threading
+                lbl_date_and_time.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    lbl_date_and_time.Text = File.GetLastWriteTime(myFile).ToLongDateString() + " : "
+                        + File.GetLastWriteTime(myFile).ToLongTimeString();
+                });
+
+                lbl_wind_direction.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    lbl_wind_direction.Text = "SE";
+                });
+
+                //myLabel.Text = File.GetLastWriteTime(myFile).ToLongDateString() + " : " 
+                //    + File.GetLastWriteTime(myFile).ToLongTimeString();
+
+                //Change the synoptic chart after 1200
+                if ((File.GetLastWriteTime(myFile).TimeOfDay.Hours == 12)&&(myFlag))
+                {
+                    pcbx_synoptic.Image = Image.FromFile("C:\\temp\\temp\\test\\west17\\1200.jpg");
+                    myFlag = false;
+                }
+
+
+
+
+
+                Thread.Sleep(170);
+            }
+        }
+
+
+
 
         //private void CreateVideoFromImages(string[] imagePaths, string outputPath, int frameRate)
         //{

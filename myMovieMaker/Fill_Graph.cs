@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -10,50 +10,60 @@ namespace myMovieMaker
     public partial class Form1
     {
 
-        private void btn_fill_graph_Click(object sender, EventArgs e)
+
+
+        private void FillGraph(string myFilePath)
         {
-           FillGraph();
-        }
+            Series MaxTemperature = chrt_temperatures.Series.Add("");
+            MaxTemperature.Color = Color.Red;
+            Series Dewpoint = chrt_temperatures.Series.Add("");
+            Dewpoint.Color = Color.Green;
 
+            Series Windspeed = chrt_winds.Series.Add("");
+            Windspeed.Color = Color.Blue;
+            Series Gustspeed = chrt_winds.Series.Add("");
+            Gustspeed.Color = Color.Fuchsia;
 
-        private void FillGraph()
-        {
-            // Load data from CSV and plot it
-            string filePath = "weather_readings_sept.csv"; // Replace with your CSV file path
+            Series Pressure = chrt_pressure.Series.Add("");
+            Pressure.Color = Color.DarkOrange;
 
-            Series series1 = chrt_temperatures.Series.Add("");
-            Series series2 = chrt_temperatures.Series.Add("");
-
-            Series series3 = chrt_winds.Series.Add("");
-            Series series4 = chrt_winds.Series.Add("");
-
-            Series series5 = chrt_pressure.Series.Add("");
-            
+            Series Rainfall = chrt_rainfall.Series.Add("");
+            Rainfall.Color = Color.DodgerBlue;
 
             //type of chart
-            series1.ChartType = SeriesChartType.FastLine; //not sure why I need this but if not I get bar chart
-            series2.ChartType = SeriesChartType.FastLine; //not sure why I need this but if not I get bar chart
+            //not sure why I need this but if not I get bar chart
+            MaxTemperature.ChartType = SeriesChartType.FastLine;
+            Dewpoint.ChartType = SeriesChartType.FastLine;
 
-            series3.ChartType = SeriesChartType.FastLine; //not sure why I need this but if not I get bar chart
-            series4.ChartType = SeriesChartType.FastLine; //not sure why I need this but if not I get bar chart
+            Windspeed.ChartType = SeriesChartType.FastLine;
+            Gustspeed.ChartType = SeriesChartType.FastLine;
 
-            series5.ChartType = SeriesChartType.FastLine; //not sure why I need this but if not I get bar chart
+            Pressure.ChartType = SeriesChartType.FastLine;
 
-            if (File.Exists(filePath))
+            Rainfall.ChartType = SeriesChartType.Column;
+
+            if (File.Exists(myFilePath))
             {
-                using (StreamReader reader = new StreamReader(filePath))
+                using (StreamReader reader = new StreamReader(myFilePath))
                 {
                     string line;
+
+                    int counter = 0;
+
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] values = line.Split(',');
-                        series1.Points.AddXY(values[0], values[1]);
-                        series2.Points.AddXY(values[0], values[2]);
+                        MaxTemperature.Points.AddXY(values[0], values[1]);
+                        Dewpoint.Points.AddXY(values[0], values[2]);
 
-                        series3.Points.AddXY(values[0], values[5]);
-                        series4.Points.AddXY(values[0], values[6]);
+                        Windspeed.Points.AddXY(values[0], values[5]);
+                        Gustspeed.Points.AddXY(values[0], values[6]);
 
-                        series5.Points.AddXY(values[0], values[7]);
+                        Pressure.Points.AddXY(values[0], values[7]);
+
+                        Rainfall.Points.AddXY(values[0], values[8]);
+
+                        counter++;
                     }
                 }
             }
@@ -61,14 +71,78 @@ namespace myMovieMaker
             {
                 MsgBox.Show("CSV file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-            
-
         }
 
 
+        private void DrawPositionLine(string myFilePath, int myPosition)
+        {
+            Series CurrentTemperaturePosition = chrt_temperatures.Series.Add("");
 
+            CurrentTemperaturePosition.BeginInvoke((MethodInvoker)delegate ()
+            {
+                CurrentTemperaturePosition = chrt_temperatures.Series.Add("");
+            CurrentTemperaturePosition.Color = Color.Black;
+
+            //Series CurrentWindSpeedPosition = chrt_winds.Series.Add("");
+            //CurrentWindSpeedPosition.Color = Color.Black;
+
+
+            //Series CurrentPressurePosition = chrt_pressure.Series.Add("");
+            //CurrentPressurePosition.Color = Color.Black;
+
+            //type of chart
+            //not sure why I need this but if not I get bar chart
+            CurrentTemperaturePosition.ChartType = SeriesChartType.Column;
+            //CurrentWindSpeedPosition.ChartType = SeriesChartType.Column;
+            //CurrentPressurePosition.ChartType = SeriesChartType.Column;
+
+
+            if (File.Exists(myFilePath))
+            {
+                using (StreamReader reader = new StreamReader(myFilePath))
+                {
+                    string[] values = ReadSpecificLine(myFilePath, myPosition).Split(',');
+
+                    for (int i = 0; i < myPosition; i++)
+                    {
+                        CurrentTemperaturePosition.Points.AddXY(0, 0);
+                        //CurrentWindSpeedPosition.Points.AddXY(0, 0);
+                        //CurrentPressurePosition.Points.AddXY(0, 0);
+                    }
+
+                    CurrentTemperaturePosition.Points.AddXY(values[0], values[1]);
+                    //CurrentWindSpeedPosition.Points.AddXY(values[0], values[6]);
+                    //CurrentPressurePosition.Points.AddXY(values[0], values[7]);
+                }
+            }
+            else
+            {
+                MsgBox.Show("CSV file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            });
+        }
+
+
+        private string ReadSpecificLine(string myFilePath, int myLineNumber)
+        {
+            if (!File.Exists(myFilePath))
+                throw new FileNotFoundException("The specified file does not exist.");
+
+            using (var reader = new StreamReader(myFilePath))
+            {
+                for (int i = 1; i <= myLineNumber; i++)
+                {
+                    string line = reader.ReadLine();
+                    if (line == null) // End of file reached
+                        return null;
+
+                    if (i == myLineNumber)
+                        return line;
+                }
+            }
+
+            return null; // Line not found
+        }
 
 
     }
