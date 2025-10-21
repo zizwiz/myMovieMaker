@@ -103,6 +103,7 @@
     <Compile Include="Utilities\FileUtilities.cs" />
     <Compile Include="Utilities\MsgBox.cs" />
     <Compile Include="Utilities\RichTextBoxLineManipulation.cs" />
+    <Compile Include="Utilities\ThreadUtilities.cs" />
     <Compile Include="Utilities\Win32.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -1,0 +1,26 @@
+using System;
+using System.Threading;
+
+class Program
+{
+    static void Main()
+    {
+        var data = new ThreadData { Message = "Hello", Number = 42 };
+        Thread thread = new Thread(new ParameterizedThreadStart(ProcessData));
+        thread.Start(data);
+
+        thread.Join();
+    }
+
+    static void ProcessData(object obj)
+    {
+        ThreadData data = (ThreadData)obj;
+        Console.WriteLine($"Message: {data.Message}, Number: {data.Number}");
+    }
+}
+
+class ThreadData
+{
+    public string Message { get; set; }
+    public int Number { get; set; }
+}

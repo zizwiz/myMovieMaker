@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using CenteredMessagebox;
 using myMovieMaker.Utilities;
 
@@ -33,7 +34,17 @@ namespace myMovieMaker
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            myChangeImageThread.Abort();
+            try
+            {
+               myChangeImageThread.Abort();
+            }
+            catch (Exception exception)
+            {
+                //do nothing just surpresss the exception
+                string abc = exception.ToString();
+            }
+            
+            
         }
 
         private void btn_select_image_files_Click(object sender, EventArgs e)
@@ -223,13 +234,13 @@ namespace myMovieMaker
 
         private void btn_fill_graph_Click(object sender, EventArgs e)
         {
-            
+
             //var t = new Thread(() => ChangeImage(lbl_date_and_time));
             //t.Start();
 
             string myWeatherFile = "weather_readings_sept.csv";
 
-           // int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile);
+            // int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile);
 
             double[] MinAndMaxValues =
                 csvFileUtilities.GetMaxMinColumnValue(myWeatherFile, "Pressure mbar");
@@ -244,23 +255,46 @@ namespace myMovieMaker
             ShowSynoptic("C:\\temp\\temp\\test\\west17\\0000.jpg");
 
             // Create and start the thread to change the images
-            myChangeImageThread = new Thread(ChangeImage);
-            myChangeImageThread.Start();
-            // DrawPositionLine("weather_readings_sept.csv", lineCount / 2);
+            //myChangeImageThread = new Thread(ChangeImage);
+            //myChangeImageThread.Start();
+
+            //Get Max values of Data
+            double[] MaxTemperatureValue = csvFileUtilities.GetMaxMinColumnValue(myWeatherFile, "Temperature °C");
+            double[] MaxWindSpeedValue = csvFileUtilities.GetMaxMinColumnValue(myWeatherFile, "Gust kts");
+            double[] MaxPressureValue = csvFileUtilities.GetMaxMinColumnValue(myWeatherFile, "Pressure mbar");
+            double[] MaxRainfallValue = csvFileUtilities.GetMaxMinColumnValue(myWeatherFile, "Rainfall mm");
+
+            // get the data object from ThreadUtilities class
+            var data = new ThreadUtilities
+            {
+                MaxTemperature = MaxTemperatureValue[0],
+                MaxWindSpeed = MaxWindSpeedValue[0],
+                MaxPressure = MaxPressureValue[0],
+                MaxRainfall = MaxRainfallValue[0]
+            };
+
+            // Create a thread and pass a parameter
+            myChangeImageThread = new Thread(new ParameterizedThreadStart(ChangeImage));
+            myChangeImageThread.Start(data);
         }
 
-        private void ChangeImage()
+
+
+        private void ChangeImage(object myThreadObject)
         {
             string myWeatherFile = "weather_readings_sept.csv";
-           int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile)-1;
-            
+            int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile) - 1;
+
             DirectoryInfo dir = new DirectoryInfo(@"C:\\temp\\temp\\test\\west17");
-            int fileCount = dir.GetFiles().Length-2;
+            int fileCount = dir.GetFiles().Length - 2;
+
+            ThreadUtilities data = (ThreadUtilities)myThreadObject;
 
 
-            
-
-            //DrawPositionLine("weather_readings_sept.csv", 98);
+            DrawPositionLine("weather_readings_sept.csv", 98, chrt_temperatures, data.MaxTemperature);
+            DrawPositionLine("weather_readings_sept.csv", 98, chrt_winds, data.MaxWindSpeed);
+            DrawPositionLine("weather_readings_sept.csv", 98, chrt_pressure, data.MaxPressure);
+            DrawPositionLine("weather_readings_sept.csv", 98, chrt_rainfall, data.MaxRainfall);
 
 
             bool myFlag = true;
@@ -273,6 +307,10 @@ namespace myMovieMaker
                 //DateTime creationTime = File.GetCreationTime(myImageFile);
                 //DateTime lastWriteDateTime = File.GetLastWriteTime(myFile);
                 //TimeSpan myFileTime = File.GetLastWriteTime(myFile).TimeOfDay;
+
+                //chrt_temperatures.Series.Remove(CurrentChartPosition);
+                DrawPositionLine("weather_readings_sept.csv", 98+(i/4), chrt_temperatures, data.MaxTemperature);
+
 
                 //Invoke to prevent cross threading
                 lbl_date_and_time.BeginInvoke((MethodInvoker)delegate ()
@@ -290,7 +328,7 @@ namespace myMovieMaker
                 //    + File.GetLastWriteTime(myFile).ToLongTimeString();
 
                 //Change the synoptic chart after 1200
-                if ((File.GetLastWriteTime(myFile).TimeOfDay.Hours == 12)&&(myFlag))
+                if ((File.GetLastWriteTime(myFile).TimeOfDay.Hours == 12) && (myFlag))
                 {
                     pcbx_synoptic.Image = Image.FromFile("C:\\temp\\temp\\test\\west17\\1200.jpg");
                     myFlag = false;

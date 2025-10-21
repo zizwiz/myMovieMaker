@@ -75,49 +75,46 @@ namespace myMovieMaker
         }
 
 
-        private void DrawPositionLine(string myFilePath, int myPosition)
+        private void DrawPositionLine(string myFilePath, int myPosition, Chart myChart, double myCSVColumn)
         {
-
-            Series CurrentTemperaturePosition = chrt_temperatures.Series.Add("");
-
-            CurrentTemperaturePosition.Color = Color.Black;
-
-            Series CurrentWindSpeedPosition = chrt_winds.Series.Add("");
-            CurrentWindSpeedPosition.Color = Color.Black;
-
-
-            Series CurrentPressurePosition = chrt_pressure.Series.Add("");
-            CurrentPressurePosition.Color = Color.Black;
-
-            // type of chart
-            //not sure why I need this but if not I get bar chart
-            CurrentTemperaturePosition.ChartType = SeriesChartType.Column;
-            CurrentWindSpeedPosition.ChartType = SeriesChartType.Column;
-            CurrentPressurePosition.ChartType = SeriesChartType.Column;
-
-
-            if (File.Exists(myFilePath))
+            //Invoke to prevent cross threading
+            myChart.BeginInvoke((MethodInvoker)delegate ()
             {
-                using (StreamReader reader = new StreamReader(myFilePath))
+                Series CurrentChartPosition = myChart.Series.Add("");
+                CurrentChartPosition.Color = Color.Black;
+
+               
+                // type of chart
+                //not sure why I need this but if not I get bar chart
+                CurrentChartPosition.ChartType = SeriesChartType.Column;
+
+
+                if (File.Exists(myFilePath))
                 {
-                    string[] values = ReadSpecificLine(myFilePath, myPosition).Split(',');
-
-                    for (int i = 0; i < myPosition; i++)
+                    using (StreamReader reader = new StreamReader(myFilePath))
                     {
-                        CurrentTemperaturePosition.Points.AddXY(0, 0);
-                        CurrentWindSpeedPosition.Points.AddXY(0, 0);
-                        CurrentPressurePosition.Points.AddXY(0, 0);
-                    }
+                        string[] values = ReadSpecificLine(myFilePath, myPosition).Split(',');
+                        
+                        for (int i = 0; i < myPosition; i++)
+                        {
+                            CurrentChartPosition.Points.AddXY(0, 0);
+                        }
 
-                    CurrentTemperaturePosition.Points.AddXY(values[0], values[1]);
-                    CurrentWindSpeedPosition.Points.AddXY(values[0], values[6]);
-                    CurrentPressurePosition.Points.AddXY(values[0], values[7]);
+                        CurrentChartPosition.Points.AddXY(values[0], myCSVColumn);
+                    }
                 }
-            }
-            else
-            {
-                MsgBox.Show("CSV file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                else
+                {
+                    MsgBox.Show("CSV file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+                //if (myChart.Series.Contains(CurrentMyChartPosition))
+                //{
+                //myChart.Series.Remove(CurrentMyChartPosition);
+                //    myChart.Invalidate(); // Redraw the chart
+                //}
+            });
 
         }
 
