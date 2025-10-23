@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -15,34 +14,16 @@ namespace myMovieMaker
 
         private void FillGraph(string myFilePath)
         {
-            Series MaxTemperature = chrt_temperatures.Series.Add("");
-            MaxTemperature.Color = Color.Red;
-            Series Dewpoint = chrt_temperatures.Series.Add("");
-            Dewpoint.Color = Color.Green;
+            //Set colour for charts
+            chrt_temperatures.Series["MaxTemperature"].Color = Color.Red;
+            chrt_temperatures.Series["Dewpoint"].Color = Color.Green;
+            chrt_winds.Series["Windspeed"].Color = Color.Blue;
+            chrt_winds.Series["Gustspeed"].Color = Color.Fuchsia;
+            chrt_pressure.Series["Pressure"].Color = Color.DarkOrange;
+            chrt_rainfall.Series["Rainfall"].Color = Color.DodgerBlue;
 
-            Series Windspeed = chrt_winds.Series.Add("");
-            Windspeed.Color = Color.Blue;
-            Series Gustspeed = chrt_winds.Series.Add("");
-            Gustspeed.Color = Color.Fuchsia;
 
-            Series Pressure = chrt_pressure.Series.Add("");
-            Pressure.Color = Color.DarkOrange;
-
-            Series Rainfall = chrt_rainfall.Series.Add("");
-            Rainfall.Color = Color.DodgerBlue;
-
-            //type of chart
-            //not sure why I need this but if not I get bar chart
-            MaxTemperature.ChartType = SeriesChartType.FastLine;
-            Dewpoint.ChartType = SeriesChartType.FastLine;
-
-            Windspeed.ChartType = SeriesChartType.FastLine;
-            Gustspeed.ChartType = SeriesChartType.FastLine;
-
-            Pressure.ChartType = SeriesChartType.FastLine;
-
-            Rainfall.ChartType = SeriesChartType.Column;
-
+            //Draw Graphs
             if (File.Exists(myFilePath))
             {
                 using (StreamReader reader = new StreamReader(myFilePath))
@@ -54,15 +35,15 @@ namespace myMovieMaker
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] values = line.Split(',');
-                        MaxTemperature.Points.AddXY(values[0], values[1]);
-                        Dewpoint.Points.AddXY(values[0], values[2]);
+                        chrt_temperatures.Series["MaxTemperature"].Points.AddXY(values[0], values[1]);
+                        chrt_temperatures.Series["Dewpoint"].Points.AddXY(values[0], values[2]);
 
-                        Windspeed.Points.AddXY(values[0], values[5]);
-                        Gustspeed.Points.AddXY(values[0], values[6]);
+                        chrt_winds.Series["Windspeed"].Points.AddXY(values[0], values[5]);
+                        chrt_winds.Series["Gustspeed"].Points.AddXY(values[0], values[6]);
 
-                        Pressure.Points.AddXY(values[0], values[7]);
+                        chrt_pressure.Series["Pressure"].Points.AddXY(values[0], values[7]);
 
-                        Rainfall.Points.AddXY(values[0], values[8]);
+                        chrt_rainfall.Series["Rainfall"].Points.AddXY(values[0], values[8]);
 
                         counter++;
                     }
@@ -75,47 +56,44 @@ namespace myMovieMaker
         }
 
 
-        private void DrawPositionLine(string myFilePath, int myPosition, Chart myChart, double myCSVColumn)
+        private void DrawPositionLine(string myFilePath, int myPosition, Chart myChart, double myCSVColumn, Series mySeries)
         {
             //Invoke to prevent cross threading
             myChart.BeginInvoke((MethodInvoker)delegate ()
             {
-                Series CurrentChartPosition = myChart.Series.Add("");
-                CurrentChartPosition.Color = Color.Black;
-
-               
-                // type of chart
-                //not sure why I need this but if not I get bar chart
-                CurrentChartPosition.ChartType = SeriesChartType.Column;
-
+                //Remove the series so we can redraw it to make it look like it is moving
+                mySeries.Points.Clear();
+                mySeries.Color = Color.Black;
 
                 if (File.Exists(myFilePath))
                 {
                     using (StreamReader reader = new StreamReader(myFilePath))
                     {
+                        int i;
+
                         string[] values = ReadSpecificLine(myFilePath, myPosition).Split(',');
-                        
-                        for (int i = 0; i < myPosition; i++)
+
+                        myChart.Series["CurrentChartPosition"].Points.Clear();
+
+                        for (i = 0; i < myPosition - 1; i++)
                         {
-                            CurrentChartPosition.Points.AddXY(0, 0);
+                            mySeries.Points.AddXY(0, 0);
                         }
 
-                        CurrentChartPosition.Points.AddXY(values[0], myCSVColumn);
+                        mySeries.Points.AddXY(values[0], myCSVColumn);
+
+                        // Show wind direction
+                        lbl_wind_direction.Text = values[4];
+
+                        //Show total rainfall for the day
+                        lbl_total_rainfall.Text = values[9] + "mm";
                     }
                 }
                 else
                 {
                     MsgBox.Show("CSV file not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
-                //if (myChart.Series.Contains(CurrentMyChartPosition))
-                //{
-                //myChart.Series.Remove(CurrentMyChartPosition);
-                //    myChart.Invalidate(); // Redraw the chart
-                //}
             });
-
         }
 
 

@@ -30,13 +30,19 @@ namespace myMovieMaker
         private void InitializeComponent()
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.txtbx_file_list = new System.Windows.Forms.TextBox();
             this.btn_select_image_files = new System.Windows.Forms.Button();
@@ -102,6 +108,8 @@ namespace myMovieMaker
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.lbl_wind_direction = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lbl_total_rainfall = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_replace_empty_jpg.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -392,6 +400,8 @@ namespace myMovieMaker
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.Black;
+            this.panel5.Controls.Add(this.lbl_total_rainfall);
+            this.panel5.Controls.Add(this.label20);
             this.panel5.Controls.Add(this.lbl_wind_direction);
             this.panel5.Controls.Add(this.label19);
             this.panel5.Controls.Add(this.label18);
@@ -642,10 +652,17 @@ namespace myMovieMaker
             this.chrt_temperatures.ChartAreas.Add(chartArea4);
             this.chrt_temperatures.Location = new System.Drawing.Point(7, 423);
             this.chrt_temperatures.Name = "chrt_temperatures";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Name = "Series1";
-            this.chrt_temperatures.Series.Add(series4);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series8.Name = "MaxTemperature";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series9.Name = "Dewpoint";
+            series10.ChartArea = "ChartArea1";
+            series10.Name = "CurrentChartPosition";
+            this.chrt_temperatures.Series.Add(series8);
+            this.chrt_temperatures.Series.Add(series9);
+            this.chrt_temperatures.Series.Add(series10);
             this.chrt_temperatures.Size = new System.Drawing.Size(349, 184);
             this.chrt_temperatures.TabIndex = 1;
             this.chrt_temperatures.Text = "chart1";
@@ -658,10 +675,17 @@ namespace myMovieMaker
             this.chrt_winds.ChartAreas.Add(chartArea3);
             this.chrt_winds.Location = new System.Drawing.Point(362, 423);
             this.chrt_winds.Name = "chrt_winds";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Name = "Series1";
-            this.chrt_winds.Series.Add(series3);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series5.Name = "Windspeed";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series6.Name = "Gustspeed";
+            series7.ChartArea = "ChartArea1";
+            series7.Name = "CurrentChartPosition";
+            this.chrt_winds.Series.Add(series5);
+            this.chrt_winds.Series.Add(series6);
+            this.chrt_winds.Series.Add(series7);
             this.chrt_winds.Size = new System.Drawing.Size(349, 184);
             this.chrt_winds.TabIndex = 2;
             this.chrt_winds.Text = "chart1";
@@ -670,16 +694,17 @@ namespace myMovieMaker
             // 
             chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea2.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea2.AxisY.Maximum = 1050D;
-            chartArea2.AxisY.Minimum = 920D;
             chartArea2.Name = "ChartArea1";
             this.chrt_pressure.ChartAreas.Add(chartArea2);
             this.chrt_pressure.Location = new System.Drawing.Point(717, 423);
             this.chrt_pressure.Name = "chrt_pressure";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Name = "Series1";
-            this.chrt_pressure.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Name = "Pressure";
+            series4.ChartArea = "ChartArea1";
+            series4.Name = "CurrentChartPosition";
+            this.chrt_pressure.Series.Add(series3);
+            this.chrt_pressure.Series.Add(series4);
             this.chrt_pressure.Size = new System.Drawing.Size(336, 184);
             this.chrt_pressure.TabIndex = 3;
             this.chrt_pressure.Text = "chart1";
@@ -783,8 +808,11 @@ namespace myMovieMaker
             this.chrt_rainfall.Location = new System.Drawing.Point(1059, 423);
             this.chrt_rainfall.Name = "chrt_rainfall";
             series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
+            series1.Name = "Rainfall";
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "CurrentChartPosition";
             this.chrt_rainfall.Series.Add(series1);
+            this.chrt_rainfall.Series.Add(series2);
             this.chrt_rainfall.Size = new System.Drawing.Size(349, 184);
             this.chrt_rainfall.TabIndex = 12;
             this.chrt_rainfall.Text = "chart1";
@@ -820,6 +848,26 @@ namespace myMovieMaker
             this.lbl_wind_direction.Size = new System.Drawing.Size(33, 20);
             this.lbl_wind_direction.TabIndex = 15;
             this.lbl_wind_direction.Text = "......";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.ForeColor = System.Drawing.Color.White;
+            this.label20.Location = new System.Drawing.Point(585, 240);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(101, 20);
+            this.label20.TabIndex = 16;
+            this.label20.Text = "Total Rainfall";
+            // 
+            // lbl_total_rainfall
+            // 
+            this.lbl_total_rainfall.AutoSize = true;
+            this.lbl_total_rainfall.ForeColor = System.Drawing.Color.White;
+            this.lbl_total_rainfall.Location = new System.Drawing.Point(606, 276);
+            this.lbl_total_rainfall.Name = "lbl_total_rainfall";
+            this.lbl_total_rainfall.Size = new System.Drawing.Size(33, 20);
+            this.lbl_total_rainfall.TabIndex = 17;
+            this.lbl_total_rainfall.Text = "......";
             // 
             // Form1
             // 
@@ -923,6 +971,8 @@ namespace myMovieMaker
         private System.Windows.Forms.DataVisualization.Charting.Chart chrt_rainfall;
         private System.Windows.Forms.Label lbl_wind_direction;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lbl_total_rainfall;
+        private System.Windows.Forms.Label label20;
     }
 }
 

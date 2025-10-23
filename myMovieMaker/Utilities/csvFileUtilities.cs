@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -69,6 +70,70 @@ namespace myMovieMaker.Utilities
 
             return Values;
         }
+
+
+        public static int GetLineNumber(string myCSVFilePath, TimeSpan myCurrentTime)
+        {
+            int closestLineNumber = -1;
+
+            try
+            {
+               // Read all lines from the CSV file
+                var lines = File.ReadAllLines(myCSVFilePath);
+
+                // Get the current time of day in hh:mm format
+               // TimeSpan currentTime = DateTime.Now.TimeOfDay;
+
+                // Initialize variables to track the closest match
+                
+                TimeSpan closestTimeDifference = TimeSpan.MaxValue;
+
+                // Iterate through each line in the CSV file
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    // Split the line by commas to get the first column (time)
+                    var columns = lines[i].Split(',');
+
+                    if (columns.Length > 0)
+                    {
+                        // Parse the time from the first column
+                        if (TimeSpan.TryParseExact(columns[0], "hh\\:mm", CultureInfo.InvariantCulture, out TimeSpan recordedTime))
+                        {
+                            // Calculate the time difference
+                            TimeSpan timeDifference = (myCurrentTime - recordedTime).Duration();
+
+                            // Update the closest match if this is a smaller difference
+                            if (timeDifference < closestTimeDifference)
+                            {
+                                closestTimeDifference = timeDifference;
+                                closestLineNumber = i + 1; // Line numbers are 1-based
+                            }
+                        }
+                    }
+                }
+
+                // Display the result
+                //if (closestLineNumber != -1)
+                //{
+                //    MessageBox.Show($"Closest match is on line {closestLineNumber} with a time difference of {closestTimeDifference.TotalMinutes} minutes.");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("No valid time entries found in the CSV file.");
+                //}
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+                //MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+
+
+
+
+            return closestLineNumber;
+        }
+
 
 
     }

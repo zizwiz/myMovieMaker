@@ -290,13 +290,6 @@ namespace myMovieMaker
 
             ThreadUtilities data = (ThreadUtilities)myThreadObject;
 
-
-            DrawPositionLine("weather_readings_sept.csv", 98, chrt_temperatures, data.MaxTemperature);
-            DrawPositionLine("weather_readings_sept.csv", 98, chrt_winds, data.MaxWindSpeed);
-            DrawPositionLine("weather_readings_sept.csv", 98, chrt_pressure, data.MaxPressure);
-            DrawPositionLine("weather_readings_sept.csv", 98, chrt_rainfall, data.MaxRainfall);
-
-
             bool myFlag = true;
             string myFile;
 
@@ -308,8 +301,13 @@ namespace myMovieMaker
                 //DateTime lastWriteDateTime = File.GetLastWriteTime(myFile);
                 //TimeSpan myFileTime = File.GetLastWriteTime(myFile).TimeOfDay;
 
-                //chrt_temperatures.Series.Remove(CurrentChartPosition);
-                DrawPositionLine("weather_readings_sept.csv", 98+(i/4), chrt_temperatures, data.MaxTemperature);
+                //draw the moving position on each graph. The position shows the time of each image.
+               int position = csvFileUtilities.GetLineNumber(myWeatherFile, File.GetLastWriteTime(myFile).TimeOfDay);
+
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_temperatures, data.MaxTemperature, chrt_temperatures.Series["CurrentChartPosition"]);
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_winds, data.MaxWindSpeed, chrt_winds.Series["CurrentChartPosition"]);
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_pressure, data.MaxPressure, chrt_pressure.Series["CurrentChartPosition"]);
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_rainfall, data.MaxRainfall, chrt_rainfall.Series["CurrentChartPosition"]);
 
 
                 //Invoke to prevent cross threading
@@ -319,14 +317,6 @@ namespace myMovieMaker
                         + File.GetLastWriteTime(myFile).ToLongTimeString();
                 });
 
-                lbl_wind_direction.BeginInvoke((MethodInvoker)delegate ()
-                {
-                    lbl_wind_direction.Text = "SE";
-                });
-
-                //myLabel.Text = File.GetLastWriteTime(myFile).ToLongDateString() + " : " 
-                //    + File.GetLastWriteTime(myFile).ToLongTimeString();
-
                 //Change the synoptic chart after 1200
                 if ((File.GetLastWriteTime(myFile).TimeOfDay.Hours == 12) && (myFlag))
                 {
@@ -334,10 +324,7 @@ namespace myMovieMaker
                     myFlag = false;
                 }
 
-
-
-
-
+                //need to sleep the thread to make sure all is drawn before we move on
                 Thread.Sleep(170);
             }
         }
