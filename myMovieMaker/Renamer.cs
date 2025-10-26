@@ -44,7 +44,7 @@ namespace myMovieMaker
             try
             {
                 //var files = Directory.GetFiles(myFolderPath, myWildCard);
-                lbl_renamed_files_folder.Text = myFolderPath + "renamed";
+                lbl_renamed_file_path.Text = myFolderPath + "renamed";
                 
                 string[] myImagesArray = txtbx_file_list.Lines;
 
@@ -55,10 +55,10 @@ namespace myMovieMaker
                 {
                     string extension = Path.GetExtension(file);
                     string newFileName = MyNamePrefix + counter + extension;
-                    string newFilePath = Path.Combine(lbl_renamed_files_folder.Text, newFileName);
+                    string newFilePath = Path.Combine(lbl_renamed_file_path.Text, newFileName);
                    
                     //create the new folder if it does not exist
-                    Directory.CreateDirectory(lbl_renamed_files_folder.Text);
+                    Directory.CreateDirectory(lbl_renamed_file_path.Text);
 
                     rchtxtbx_original_name.AppendText(file + "\r");
                     rchtxtbx_original_name.ScrollToCaret();

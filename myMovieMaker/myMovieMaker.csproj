@@ -101,6 +101,7 @@
     <Compile Include="Utilities\ArrayUtilities.cs" />
     <Compile Include="Utilities\csvFileUtilities.cs" />
     <Compile Include="Utilities\FileUtilities.cs" />
+    <Compile Include="Utilities\MovieUtilities.cs" />
     <Compile Include="Utilities\MsgBox.cs" />
     <Compile Include="Utilities\RichTextBoxLineManipulation.cs" />
     <Compile Include="Utilities\ThreadUtilities.cs" />

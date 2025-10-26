@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using CenteredMessagebox;
 using myMovieMaker.Utilities;
-
-//using Accord.Video.FFMPEG;
 
 namespace myMovieMaker
 {
@@ -25,7 +23,10 @@ namespace myMovieMaker
         private void Form1_Load(object sender, EventArgs e)
         {
             Text += " : v" + Assembly.GetExecutingAssembly().GetName().Version; // put in the version number
+            Size = new Size(1520, 969);
         }
+
+        
 
         private void btn_close_Click(object sender, EventArgs e)
         {
@@ -36,15 +37,15 @@ namespace myMovieMaker
         {
             try
             {
-               myChangeImageThread.Abort();
+                if (myChangeImageThread != null) myChangeImageThread.Abort();
             }
             catch (Exception exception)
             {
                 //do nothing just surpresss the exception
                 string abc = exception.ToString();
             }
-            
-            
+
+
         }
 
         private void btn_select_image_files_Click(object sender, EventArgs e)
@@ -57,7 +58,11 @@ namespace myMovieMaker
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    lbl_folder_path.Text = Path.GetDirectoryName(openFileDialog.FileName) + "\\";
+                    //lbl_folder_path.Text = Path.GetDirectoryName(openFileDialog.FileName) + "\\";
+
+                    FileUtilities.Createfolders(openFileDialog.FileName, lbl_folder_path, lbl_backup_file_path,
+                        lbl_renamed_file_path, lbl_synoptic_file_path, lbl_movie_images_file_path, lbl_movie_file_path);
+
                     txtbx_file_list.Lines = openFileDialog.FileNames;
                 }
             }
@@ -134,7 +139,7 @@ namespace myMovieMaker
 
         private void btn_check_for_empty_jpg_Click(object sender, EventArgs e)
         {
-            if (!ProcessJpgFiles(txtbx_file_list, true)) return;
+            if (!ProcessJpgFiles(txtbx_file_list, true)) ;
         }
 
         private void btn_backup_files_Click(object sender, EventArgs e)
@@ -163,7 +168,7 @@ namespace myMovieMaker
 
                 // Copy files from source to backup folder
                 FileUtilities.CopyFiles(sourceFolder, backupFolder);
-                lbl_backup_folder.Text = backupFolder;
+                lbl_backup_file_path.Text = backupFolder;
                 MsgBox.Show("Files backed-up successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -193,8 +198,8 @@ namespace myMovieMaker
 
             // Save video file
             if (chkbx_autoname.Checked)
-            {
-                CreateVideoFromImages(rchtxtbx_renamed_file_name.Lines, DateTime.Now.ToString("ddMMyyyy_HHmmss"), frameRate, false);
+            { 
+                CreateVideoFromImages(rchtxtbx_renamed_file_name.Lines, "Movie_" + DateTime.Now.ToString("ddMMyyyy_HHmmss"), frameRate, false);
             }
             else
             {
@@ -206,7 +211,7 @@ namespace myMovieMaker
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         if (!CreateVideoFromImages(rchtxtbx_renamed_file_name.Lines, saveFileDialog.FileName, frameRate,
-                                false)) return;
+                               false)) return;
 
                         //All worked and video has been created
                         MsgBox.Show("Movie awaits its premier", "Success", MessageBoxButtons.OK,
@@ -227,14 +232,68 @@ namespace myMovieMaker
             txtbx_file_list.Clear();
             txtbx_rename_counter.Text = "1";
             txtWildcard.Text = "";
-            lbl_backup_folder.Text = "....";
+            lbl_backup_file_path.Text = "....";
             lbl_folder_path.Text = "....";
-            lbl_renamed_files_folder.Text = "....";
+            lbl_renamed_file_path.Text = "....";
         }
 
-        private void btn_fill_graph_Click(object sender, EventArgs e)
+        private void ChangeImage(object myThreadObject)
         {
+            string myWeatherFile = "weather_readings_sept.csv";
+            int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile) - 1;
 
+            DirectoryInfo dir = new DirectoryInfo(@"C:\\temp\\temp\\test\\west17");
+            int fileCount = dir.GetFiles().Length;
+
+            ThreadUtilities data = (ThreadUtilities)myThreadObject;
+
+            bool myFlag = true;
+            string myFile;
+
+            //starts from file #1 hence i = 1
+            for (int i = 1; i <= fileCount; i++)
+            {
+                myFile = "C:\\temp\\temp\\test\\west17\\" + i + ".jpg";
+                ShowImage(myFile);
+                //DateTime creationTime = File.GetCreationTime(myImageFile);
+                //DateTime lastWriteDateTime = File.GetLastWriteTime(myFile);
+                //TimeSpan myFileTime = File.GetLastWriteTime(myFile).TimeOfDay;
+
+                //draw the moving position on each graph. The position shows the time of each image.
+                int position = csvFileUtilities.GetLineNumber(myWeatherFile, File.GetLastWriteTime(myFile).TimeOfDay);
+
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_temperatures, data.MaxTemperature, chrt_temperatures.Series["CurrentChartPosition"]);
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_winds, data.MaxWindSpeed, chrt_winds.Series["CurrentChartPosition"]);
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_pressure, data.MaxPressure, chrt_pressure.Series["CurrentChartPosition"]);
+                DrawPositionLine("weather_readings_sept.csv", position, chrt_rainfall, data.MaxRainfall, chrt_rainfall.Series["CurrentChartPosition"]);
+
+
+                //Invoke to prevent cross threading
+                lbl_date_and_time.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    lbl_date_and_time.Text = File.GetLastWriteTime(myFile).ToLongDateString() + " : "
+                        + File.GetLastWriteTime(myFile).ToLongTimeString();
+                });
+
+                //Change the synoptic chart after 1200
+                if ((File.GetLastWriteTime(myFile).TimeOfDay.Hours == 12) && (myFlag))
+                {
+                    pcbx_synoptic.Image = Image.FromFile("C:\\temp\\temp\\test\\west17\\synoptic\\1200.jpg");
+                    myFlag = false;
+                }
+
+                //need to sleep the thread to make sure all is drawn before we move on
+                Thread.Sleep(170);
+
+                MovieUtilities.CreateMovieImage(panel_make_image, i);
+            }
+
+
+
+        }
+
+        private void btn_build_images_Click(object sender, EventArgs e)
+        {
             //var t = new Thread(() => ChangeImage(lbl_date_and_time));
             //t.Start();
 
@@ -252,7 +311,7 @@ namespace myMovieMaker
             // Load data from CSV and plot it
             FillGraph(myWeatherFile);
 
-            ShowSynoptic("C:\\temp\\temp\\test\\west17\\0000.jpg");
+            ShowSynoptic("C:\\temp\\temp\\test\\west17\\synoptic\\0000.jpg");
 
             // Create and start the thread to change the images
             //myChangeImageThread = new Thread(ChangeImage);
@@ -278,56 +337,59 @@ namespace myMovieMaker
             myChangeImageThread.Start(data);
         }
 
-
-
-        private void ChangeImage(object myThreadObject)
+        private void btn_movie_test_Click(object sender, EventArgs e)
         {
-            string myWeatherFile = "weather_readings_sept.csv";
-            int lineCount = csvFileUtilities.CountLinesInCSVFile(myWeatherFile) - 1;
+            string folderPath = "C:\\temp\\temp\\test\\west17\\movie_images\\";
 
-            DirectoryInfo dir = new DirectoryInfo(@"C:\\temp\\temp\\test\\west17");
-            int fileCount = dir.GetFiles().Length - 2;
+            // Get all files, sort by file name, and store in a string array
+            //string[] myStringArrayOfFileNames = Directory.GetFiles(folderPath)
+            //    .OrderBy(file => Path.GetFileName(file))
+            //    .ToArray();
 
-            ThreadUtilities data = (ThreadUtilities)myThreadObject;
+            // Get all file paths in the folder
+            //  string[] myStringArrayOfFileNames = Directory.GetFiles(folderPath);
 
-            bool myFlag = true;
-            string myFile;
+            // Get all files in the folder matching the pattern "*.jpg"
+            string[] files = Directory.GetFiles(folderPath, "*.jpg");
 
-            for (int i = 1; i < fileCount - 1; i++)
-            {
-                myFile = "C:\\temp\\temp\\test\\west17\\" + i + ".jpg";
-                ShowImage(myFile);
-                //DateTime creationTime = File.GetCreationTime(myImageFile);
-                //DateTime lastWriteDateTime = File.GetLastWriteTime(myFile);
-                //TimeSpan myFileTime = File.GetLastWriteTime(myFile).TimeOfDay;
+            // Sort files numerically based on their file names
+            string[] sortedFiles = files
+                .OrderBy(file => int.TryParse(Path.GetFileNameWithoutExtension(file), out int number) ? number : int.MaxValue)
+                .ToArray();
 
-                //draw the moving position on each graph. The position shows the time of each image.
-               int position = csvFileUtilities.GetLineNumber(myWeatherFile, File.GetLastWriteTime(myFile).TimeOfDay);
+           CreateVideoFromImages(sortedFiles, "Movie_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".mp4", 5, false);
 
-                DrawPositionLine("weather_readings_sept.csv", position, chrt_temperatures, data.MaxTemperature, chrt_temperatures.Series["CurrentChartPosition"]);
-                DrawPositionLine("weather_readings_sept.csv", position, chrt_winds, data.MaxWindSpeed, chrt_winds.Series["CurrentChartPosition"]);
-                DrawPositionLine("weather_readings_sept.csv", position, chrt_pressure, data.MaxPressure, chrt_pressure.Series["CurrentChartPosition"]);
-                DrawPositionLine("weather_readings_sept.csv", position, chrt_rainfall, data.MaxRainfall, chrt_rainfall.Series["CurrentChartPosition"]);
+            /*
+             * using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+               {
+               //We save files as Mpeg4 only
+               saveFileDialog.Filter = "mpeg4 files (*.mp4)|*.mp4";
+               
+               if (saveFileDialog.ShowDialog() == DialogResult.OK)
+               {
+               CreateVideoFromImages(myImagesArray, saveFileDialog.FileName, frameRate, true);
+               
+               // CreateVideoFromImages(inputFolder, outputPath, frameRate);
+               MsgBox.Show("Video created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               }
+               }
+             */
 
-
-                //Invoke to prevent cross threading
-                lbl_date_and_time.BeginInvoke((MethodInvoker)delegate ()
-                {
-                    lbl_date_and_time.Text = File.GetLastWriteTime(myFile).ToLongDateString() + " : "
-                        + File.GetLastWriteTime(myFile).ToLongTimeString();
-                });
-
-                //Change the synoptic chart after 1200
-                if ((File.GetLastWriteTime(myFile).TimeOfDay.Hours == 12) && (myFlag))
-                {
-                    pcbx_synoptic.Image = Image.FromFile("C:\\temp\\temp\\test\\west17\\1200.jpg");
-                    myFlag = false;
-                }
-
-                //need to sleep the thread to make sure all is drawn before we move on
-                Thread.Sleep(170);
-            }
         }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            lbl_width.Text = Width.ToString();
+            lbl_height.Text = Height.ToString();
+
+            lbl_panel_height.Text = panel_make_image.Size.Height.ToString();
+            lbl_panel_width.Text = panel_make_image.Size.Width.ToString();
+
+        }
+
+
+
+
 
 
 

@@ -12,20 +12,20 @@ namespace myMovieMaker
 {
     public partial class Form1
     {
-
         private bool CreateVideoFromImages(string[] myImagesArray, string myOutputVideo, int myFrameRate, bool myFlag)
         {
             // Get all JPG files in the folder, sorted by name
            // var imageFiles = Directory.GetFiles(imageFolder, "*.jpg").OrderBy(f => f).ToList();
 
            bool result = false;
+
             if (myImagesArray.Length == 0)
             {
                 MsgBox.Show("No JPG files found in the selected folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return result;
             }
 
-            myImagesArray = ArrayUtilities.RemoveLastItem(myImagesArray);
+           // myImagesArray = ArrayUtilities.RemoveLastItem(myImagesArray);
 
             //var inputArgs = "-framerate 20 -f rawvideo -pix_fmt rgb32 -video_size 1920x1080 -i -";
             // var outputArgs = "-vcodec libx264 -crf 23 -pix_fmt yuv420p -preset ultrafast -r 20 out.mp4";
@@ -110,14 +110,11 @@ namespace myMovieMaker
                     }
                 }
 
-                // After you are done
-                //ffmpegInput.Flush();
-                // ffmpegInput.Close();
+                //Close the process
+                process.Close();
 
                 // Wait for FFmpeg to finish
                 if (!process.HasExited) process.WaitForExit();
-                //process.Close();
-
 
                 if (myFlag)
                 {
@@ -135,8 +132,6 @@ namespace myMovieMaker
                 }
 
                 result = true;
-
-                //}
             }
             catch (Exception ex)
             {

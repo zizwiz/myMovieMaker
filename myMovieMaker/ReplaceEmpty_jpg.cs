@@ -22,7 +22,7 @@ namespace myMovieMaker
                 //first backup files even if we are only renaming a single file out of a whole directory of files.
                 string sourceFolder = lbl_folder_path.Text;
                 string backupFolder = sourceFolder + "backup_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + "\\";
-                FileUtilities.BackupFiles(sourceFolder, backupFolder, lbl_backup_folder, myFlag);
+                FileUtilities.BackupFiles(sourceFolder, backupFolder, lbl_backup_file_path, myFlag);
 
                 //Get the list from the text box and place in an array 
                 string[] myImagesArray = txtbx_file_list.Lines;

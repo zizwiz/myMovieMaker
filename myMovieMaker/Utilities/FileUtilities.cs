@@ -43,5 +43,16 @@ namespace myMovieMaker.Utilities
                 if (myFlag) MsgBox.Show($"Files not backed-up due to error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public static void Createfolders(string mySourceFolder, Label myFolderPathLabel, Label myBackupFilePathLabel,
+            Label myRenamedFilePath, Label mySynopticFilePath, Label myMovieFileImagesPath, Label myMovieFilePath)
+        {
+            myFolderPathLabel.Text = Path.GetDirectoryName(mySourceFolder) + "\\";
+            myBackupFilePathLabel.Text = myFolderPathLabel.Text + "backup\\";
+            myRenamedFilePath.Text = myFolderPathLabel.Text + "renamed\\";
+            mySynopticFilePath.Text = myFolderPathLabel.Text + "synoptic\\";
+            myMovieFileImagesPath.Text = myFolderPathLabel.Text + "movie_images\\";
+            myMovieFilePath.Text = myFolderPathLabel.Text + "movie\\";
+        }
     }
 }
